@@ -1,0 +1,67 @@
+<!-- pages/leavenotes/leavenotes.wxml -->
+<!-- search view -->
+<view class='title-navigation' wx:if="{{show_search}}">
+  <input placeholder='请输入您想查找的学生姓名' value='{{seache_name}}' bindinput='inputBlur' />
+  <text class='iconfont seacher-button icon-sousuo' bindtap='seacheFromServer'/>
+</view>
+<!-- this is the intership notes' list -->
+<view class='note-view'  wx:for='{{notesList}}' wx:key='' bindtap='showNoteDetail' id='{{index}}'>
+  <view class='note-title'>
+    <text style='width:50%;text-align:left;color:#00CD00;font-size:0.8rem;'>{{item.submitTime}}</text>
+    <text style='width:48%;text-align:right;color:red;font-size:0.8rem;' wx:if="{{user_is_teacher}}">{{item.studentName}}</text>
+    <text style='width:49%; text-align:right; margin-right:20rpx; font-size:0.8rem; color:red' wx:if="{{!user_is_teacher}}">{{switcher.checkNoteState(item.state)}}</text>
+  </view>
+  <view class='note-title' wx:if="{{user_is_teacher}}">
+    <text style='width:30%;text-align:left;color:#00CD00;font-size:0.8rem;'>假条状态:</text>
+    <text style='width:69%; text-align:right; margin-right:20rpx; font-size:0.8rem; color:red'>{{switcher.checkNoteState(item.state)}}</text>
+  </view>
+  <textarea disabled='true'>{{item.reason}}</textarea>
+  <view class='note-attachment' wx:if="{{item.type==='INTERNSHIPS'}}">
+    <icon type="{{item.internshipCertificateFilename===''?'warn':'success'}}" size='15' />
+    <label>实习证明</label>
+    <icon type="{{item.guardianIdCardFilename===''?'warn':'success'}}" size='15' />
+    <label>身份证复印件</label>
+  </view>
+  <text class='tip-text'>*点击本假条查看详情*</text>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>
+<!-- this is switching station of the note's state info -->
+<wxs module="switcher">
+var checkNoteState = function (state) {
+    var stateinfo = '';
+    switch (state) {
+      case 'NEED_AUDIT':
+        stateinfo = '待班主任审核';
+        break;
+      case 'CANCELED':
+        stateinfo = '被用户取消';
+        break;
+      case 'HEAD_TEACHER_PASS':
+        stateinfo = '待辅导员审核';
+        break;
+      case 'HEAD_TEACHER_NOT_PASS':
+        stateinfo = '班主任审核未通过';
+        break;
+      case 'COUNSELOR_TEACHER_PASS':
+        stateinfo = '请假成功';
+        break;
+      case 'COUNSELOR_TEACHER_NOT_PASS':
+        stateinfo = '辅导员审核未通过';
+        break;
+      case 'REPORTED_BACK_NEED_AUDIT':
+        stateinfo = '销假待审核';
+        break;
+      case 'REPORTED_BACK_HEAD_TEACHER_PASS':
+        stateinfo = '销假成功';
+        break;
+      case 'REPORTED_BACK_HEAD_TEACHER_NOT_PASS':
+        stateinfo = '销假审核未通过';
+        break;
+    }
+    return stateinfo;
+  }
+
+  module.exports.checkNoteState = checkNoteState;
+</wxs>

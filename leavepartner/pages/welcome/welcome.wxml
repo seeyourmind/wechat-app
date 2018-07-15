@@ -1,0 +1,9 @@
+<!--pages/welcome/welcome.wxml-->
+<!--progress percent="{{tag}}" active active-mode='forwards'/-->
+<view class='wrapper'>
+<image class='rubik-loader' src='../../image/loading.gif'></image>
+<view class='designer-info'>
+<text style='margin-top: 90%;'>Design By Fyzer</text>
+<text>Powered By Zhu Helong</text>
+</view>
+</view>

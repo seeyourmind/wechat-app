@@ -1,0 +1,195 @@
+/* pages/leavenotes/detail/detail.wxss */
+page {
+  display: flex;
+  flex-direction: row;
+  background-color: #e8e8e8;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.hr {
+  width: 100%;
+  height: 2rpx;
+  background-color: #e8e8e8;
+  border: 1rpx solid #e8e8e8;
+}
+.note-view {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: auto;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 15rpx;
+  background-color: white;
+  margin-top: 20rpx;
+}
+.note-title {
+  padding: 10rpx;
+  background-color: #00CD00;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 15rpx 15rpx 0 0;
+}
+.state-info{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+  font-size: 1rem;
+} 
+.person-info {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  font-size: 1rem;
+}
+.person-info text {
+  position: relative;
+  top: 65%;
+  transform: translateY(-50%);
+}
+.time-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+}
+textarea {
+  margin: 40rpx auto 0 auto;
+  padding: 20rpx;
+  width: 90%;
+  border-radius: 20rpx;
+  background-color: #FFF5EE;
+  overflow-wrap: break-word;
+}
+label {
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  color: #0D0D0D;
+  font-weight: bold;
+}
+.guardian-info {
+  font-size: 1rem;
+  margin: 0rpx auto 0rpx auto;
+  width: 90%;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  background-color: #FFF5EE;
+}
+.file-info {
+  margin-top: 20rpx;
+}
+.buttun-group {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25rpx;
+  margin-bottom: 40rpx;
+}
+.buttun-group button {
+  text-align: center;
+  font-size: 1rem;
+  height: 10%;
+}
+.tip-text {
+  font-size: 0.7rem;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  margin-left: 30%;
+  color: gainsboro;
+}
+
+/* 弹窗的样式 */
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff;
+}
+
+.modal-dialog {
+  width: 540rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 9999;
+  background: #f9f9f9;
+  margin: -180rpx 105rpx;
+  border-radius: 36rpx;
+}
+.modal-yl-dialog {
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 15%;
+  z-index: 9999;
+  background: #000;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.modal-yl-dialog image {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.modal-title {
+  padding-top: 50rpx;
+  font-size: 36rpx;
+  color: #030303;
+  text-align: center;
+}
+
+.modal-content {
+  padding: 50rpx 32rpx;
+}
+
+.modal-input {
+  display: flex;
+  border: 2rpx solid #ddd;
+  border-radius: 4rpx;
+}
+
+
+.input {
+  width: 100%;
+  height: 200rpx;
+  font-size: 35rpx;
+  line-height: 35rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  height: 86rpx;
+  border-top: 1px solid #dedede;
+  font-size: 34rpx;
+  line-height: 86rpx;
+}
+
+.btn-cancel {
+  width: 50%;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+  width: 50%;
+  color: #ec5300;
+  text-align: center;
+}

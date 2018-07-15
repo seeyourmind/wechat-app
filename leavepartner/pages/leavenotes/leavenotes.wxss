@@ -1,0 +1,81 @@
+/* pages/leavenotes/leavenotes.wxss */
+page{
+  background-color: #e8e8e8;
+}
+page view {
+  background-color: white;
+}
+.title-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 1rpx solid gainsboro;
+}
+.title-navigation input {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx; 
+  width: 80%;
+  margin-left: 20rpx;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 20rpx;
+  padding: 5rpx;
+}
+.seacher-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10rpx;
+  font-size: 1.5rem;
+  color: #47D2BD;
+}
+.navigation-button {
+  width: 40%;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  text-align: center;
+}
+.navigation-hr {
+  width: 1rpx;
+  background-color: gainsboro;
+}
+
+.note-view {
+  margin:10rpx;
+  border: 1rpx solid gainsboro;
+  border-radius: 10rpx;
+}
+.note-title {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx solid gainsboro;
+  border-radius: 10rpx 10rpx 0 0;
+  padding: 20rpx 20rpx 10rpx 20rpx;
+}
+
+.note-view textarea {
+  color: gray;
+  padding: 20rpx;
+  overflow: hidden;
+  width: auto;
+  text-overflow:ellipsis;
+  white-space:nowrap; 
+  height: auto;
+  font-size: 0.8rem;
+  border-bottom: 1rpx solid gainsboro;
+}
+
+.note-attachment {
+  border-bottom: 1rpx solid gainsboro;
+  padding: 20rpx;
+}
+.note-attachment label {
+  font-size: 0.9rem;
+  margin-left: 10rpx;
+  margin-right: 100rpx;
+}
+
+.tip-text {
+  font-size: 0.7rem;
+  margin-bottom: 20rpx;
+  margin-left: 30%;
+  color: gainsboro;
+}

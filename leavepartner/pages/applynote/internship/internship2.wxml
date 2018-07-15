@@ -1,0 +1,33 @@
+<!--pages/applynote/internship/internship2.wxml-->
+<view class='view-main'>
+  <view class='title-text'>证明材料</view>
+  <form bindsubmit="formSubmit">
+    <view class='column-view'>
+      <label>实习证明:</label>
+      <view id='1' class='up-button' bindtap='chooseImage' wx:if="{{internshipList.length==0}}">+</view>
+      <view class='row-view'>
+        <view wx:for="{{internshipList}}" wx:key="" class="img-cancel" data-index="{{index}}">
+          <image id='1' mode="aspectFit" class="img-item" bindtap="ylimg" data-src="{{item}}" src="{{item}}">
+          </image>
+          <text id='1' class="img-cancel-text" bindtap="cancelImg">×</text>
+
+        </view>
+      </view>
+    </view>
+    <view class='column-view'>
+      <label>家长身份证复印件:</label>
+      <view id='2' class='up-button' bindtap='chooseImage' wx:if="{{identifyList.length==0}}">+</view>
+      <view class='row-view'>
+        <view wx:for="{{identifyList}}" wx:key="" class="img-cancel" data-index="{{index}}">
+          <image id='2' mode="aspectFit" class="img-item" bindtap="ylimg" data-src="{{item}}" src="{{item}}">
+          </image>
+          <text id='2' class="img-cancel-text" bindtap="cancelImg">×</text>
+        </view>
+      </view>
+    </view>
+    <button type='primary' formType="submit">提交</button>
+  </form>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

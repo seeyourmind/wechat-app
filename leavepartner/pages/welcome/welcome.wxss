@@ -1,0 +1,37 @@
+/* pages/welcome/welcome.wxss */
+.designer-info{
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  margin-bottom: 20rpx;
+  justify-content: center;
+  height: 100%;
+}
+.designer-info text {
+  margin-left: auto;
+  margin-right: auto;
+  color: #808080;
+  font-size: 0.8rem;
+}
+
+.wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+} 
+
+.rubik-loader {
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /*background-image: url(http://i.giphy.com/3og0ISeflb7vrNzy2A.gif);*/
+  background-repeat: no-repeat;
+  background-position: center;
+}
+  

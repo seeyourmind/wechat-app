@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/register/register",
+    "pages/home/home",
+    "pages/logs/logs",
+    "pages/messages/messages",
+    "pages/leavenotes/leavenotes",
+    "pages/applynote/common/common",
+    "pages/applynote/internship/internship2",
+    "pages/userinfo/userinfo",
+    "pages/leavenotes/detail/detail",
+    "pages/modifynote/common/common",
+    "pages/modifynote/internship/internship2"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "white"
+  }
+}

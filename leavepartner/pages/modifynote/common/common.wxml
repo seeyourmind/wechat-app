@@ -1,0 +1,57 @@
+<!--pages/applynote/common/common.wxml-->
+<view class='view-main'>
+  <view class='title-text'>请假条</view>
+  <form bindsubmit='formSubmit'>
+    <view class='row-view'>
+      <text>时间</text>
+      <view class='column-view'>
+      <text style="color:'#32CD32'; font-size: 0.7rem;">请选择假期开始时间</text>
+      <view class='row-view'>
+      <picker name="startdate" mode="date" value="{{start_date}}" start="{{old_start_date}}" end="{{endday}}" bindchange="bindDateChange" id='sd'>
+        <text style="color:{{start_date=='确定日期'?'#808080':'#000'}}">{{start_date}}</text>
+      </picker>
+      <picker name="starttime" mode="time" value="{{start_time}}" start="00:00" end="24:59" bindchange="bindDateChange" id='st'>
+        <text style="color:{{start_time=='确定时间'?'#808080':'#000'}}">{{start_time}}</text>
+      </picker>
+      </view>
+      <text style="color:'#808080'; font-size: 0.7rem;">请选择假期结束时间</text>
+      <view class='row-view'>
+      <picker name="enddate" mode="date" value="{{end_date}}" start="{{old_end_date}}" end="{{endday}}" bindchange="bindDateChange" id='ed'>
+        <text style="color:{{end_date=='确定日期'?'#808080':'#000'}}">{{end_date}}</text>
+      </picker>
+      <picker name="endtime" mode="time" value="{{end_time}}" start="00:00" end="24:59" bindchange="bindDateChange" id='et'>
+        <text style="color:{{end_time=='确定时间'?'#808080':'#000'}}">{{end_time}}</text>
+      </picker>
+      </view>
+      </view>
+    </view>
+    <view class='row-view'>
+      <text>原因</text>
+      <textarea name='reason' class='reason-textarea' value='{{reason}}' placeholder=" 请填写您的请假原因" bindblur='chageReason' />
+    </view>
+    <button formType="submit" type='primary' wx:if="{{notes_type == 'c'}}" disabled='{{!user_modified}}'>提交</button>
+    <view class='row-view' hidden="{{notes_type == 'c'}}">
+      <text style='color:gray'>同意</text><text class='commitment' bindtap='showCommitment'>《安全承诺书》</text>
+    </view>
+    <button type='primary' form-type='submit' wx:if="{{notes_type == 'i'}}">下一步</button>
+  </form>
+</view>
+<!--this is the teacher model itmes-->
+<view class="drawer_box" animation="{{animationData}}" wx:if="{{showCommitment}}" >
+  <view class="drawer_content" id="alphacontent">
+  <view class="title">
+  <text class="font-size-l" style="font-weight:bold;color:#fff">安全承诺书</text>
+  </view>
+  <view class="popupinput">
+  <label style="margin: auto 10rpx auto 10rpx; font-size: 50rpx;" hidden="{{inputtype=='text'?true:false}}" bindtap="changeOperation">{{plusorminus}}</label>
+  <input id="{{inputid}}" type="{{inputtype}}" style="margin: auto 0 auto 0;" bindinput="getInputValue"/>
+  </view>
+  <view style="display: flex;flex-direction: row;" >
+  <button type="warn" bindtap="backgroundcancel" style="width:35%;margin-bottom:10rpx;" >取消</button>
+  <button type="primary" bindtap="powerDrawer" data-statu="close" style="width:35%;margin-bottom:10rpx;" disabled="{{submitb}}" >确定</button>
+  </view>
+  </view>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

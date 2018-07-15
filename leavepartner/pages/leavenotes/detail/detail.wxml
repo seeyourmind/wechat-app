@@ -1,0 +1,73 @@
+<!--pages/leavenotes/detail.wxml-->
+<view class='note-view'>
+  <view class='note-title'>请假条详情</view>
+  <view class='state-info'>
+    <text style='width:30%; text-align:left; margin-left:20rpx; font-weight: bold; font-size:0.9rem;'>假条状态:</text>
+    <text style="width:70%; text-align:right; margin-right:20rpx; font-size:0.8rem; color:{{stateInfoFlag==0?'orange':stateInfoFlag==1?'red':'green'}}">{{stateInfo}}</text>
+  </view>
+  <view class='hr'/>
+  <view class='person-info'>
+    <text style='width:25%; text-align:left; margin-left:20rpx; font-weight: bold;'>{{note.studentName}}</text>
+    <text style='width:75%; text-align:right; margin-right:20rpx; font-size:0.8rem'>{{note.className}}</text>
+  </view>
+  <view class='person-info'>
+    <text style='width:70%; text-align:left; margin-left:20rpx;'>一卡通:{{note.studentNumber}}</text>
+  </view>
+  <view class='hr'/>
+  <view class='time-info'>
+    <text style='margin-left:20rpx;'>从<text style='color:#00EE00;'>{{note.leaveTime}}</text>起</text>
+    <text style='margin-left:auto; margin-right:20rpx;'>至<text style='color:red;'>{{note.backTime}}</text>终</text>
+  </view>
+  <textarea disabled='true'>{{note.reason}}</textarea>
+  <label wx:if="{{!user_is_teacher}}">审核反馈:</label>
+  <textarea wx:if="{{!user_is_teacher}}" style='height:10%; margin-top:5rpx;' disabled='true'>{{note.notPassReason}}</textarea>
+  <view wx:if='{{user_is_teacher}}'>
+  <label>监护人信息:</label>
+  <view class='guardian-info'>
+    <text>{{note.guardianName}}</text>
+    <text style='margin-left:20rpx;'>: {{note.guardianContactInformation}}</text>
+  </view>
+  <label>假条提交定位:</label>
+  <view class='guardian-info' bindtap='findStudentFromMap'>
+    <text>点击查看</text>
+  </view>
+  </view>
+  <view class='file-info' wx:if="{{note.type==='INTERNSHIPS'}}">
+    <icon type="{{note.internshipCertificateFilename===''?'warn':'success'}}" size='15' style='margin-left: 20rpx;'/>
+    <text id='1' bindtap='ylimg'>实习证明</text>
+    <icon type="{{note.guardianIdCardFilename===''?'warn':'success'}}" size='15' style='margin-left: 50rpx;'/>
+    <text id='2' bindtap='ylimg'>身份证复印件</text>
+  </view>
+  <text class='tip-text' wx:if="{{note.type==='INTERNSHIPS'}}">*点击相应文件可以预览*</text>
+  <view class='buttun-group' wx:if='{{!(user_is_teacher)}}'>
+    <button type='primary' wx:if="{{note.state==='COUNSELOR_TEACHER_PASS'&&note.type==='INTERNSHIPS'}}" bindtap='continueNote'>续假</button>
+    <button type='warn' disabled="{{backOK}}" wx:if="{{note.state==='COUNSELOR_TEACHER_PASS'}}" bindtap='backlNote'>销假</button>
+    <button type='warn' disabled="{{note.state==='COUNSELOR_TEACHER_PASS'||note.state==='REPORTED_BACK_NEED_AUDIT'||note.state==='REPORTED_BACK_HEAD_TEACHER_PASS'||note.state==='REPORTED_BACK_HEAD_TEACHER_NOT_PASS'?true:false}}" bindtap='cancelNote'>撤销</button>
+    <button type='primary' disabled="{{note.state==='HEAD_TEACHER_NOT_PASS'||note.state==='COUNSELOR_TEACHER_NOT_PASS'?false:true}}" bindtap='modifyNote'>修改</button>
+  </view>
+  <view class='buttun-group' wx:if="{{user_is_teacher && (type_is_search==='false')}}">
+    <button type='warn' bindtap='cancelVerify'>拒绝</button>
+    <button type='primary' bindtap='confirmVerify'>通过</button>
+  </view>
+</view>
+
+<!--拒绝理由弹窗-->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">拒绝理由</view>
+    <view class="modal-content">
+      <view class="modal-input">
+        <textarea type="text" bindinput="inputChange" class="input" placeholder="请填写拒绝审核的理由"></textarea>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap='onConfirm' data-status="confirm">确定</view>
+    </view>
+</view>
+
+<!--图片预览弹窗-->
+<view class="modal-mask" bindtap="hideylModal" catchtouchmove="preventTouchMove" wx:if="{{showylModal}}"></view>
+<view class="modal-yl-dialog" wx:if="{{showylModal}}">
+  <image src='{{yl_image}}' mode='aspectFit'></image>
+</view>

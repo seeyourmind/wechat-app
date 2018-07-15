@@ -1,0 +1,52 @@
+<!--pages/userinfo/userinfo.wxml-->
+<!--this is the student's information block-->
+<view class="user-info" hidden='{{user_is_teacher}}'>
+    <view class="view-display-row">
+      <text class="user-info-text">用户头像</text>
+      <image class="userinfo-avatar" style="margin-left:100rpx;" src="{{avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">学号</text>
+      <input disabled='true' placeholder="请填写您的一卡通号" value="{{userInfo.studentNumber}}" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">姓名</text>
+      <input disabled='true' placeholder="请填写您的真实姓名" value="{{userInfo.name}}" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">班级</text>
+      <input disabled='true' placeholder="请填写您的班级信息" value="{{userInfo.className}}" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">联系方式</text>
+      <input type='number' placeholder="请填写您的手机号码" value="{{userInfo.contactInformation}}"  bindblur="inputBlur" id="mp"/>
+    </view>
+    <view class="user-info-hr"></view>
+    <view class="view-display-row">
+      <text class="user-info-text">监护人</text>
+      <input type='text' placeholder="请填写监护人的真实姓名" value="{{userInfo.guardianName}}" bindblur="inputBlur" id="gn"/>
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">联系方式</text>
+      <input type='number' placeholder="请填写监护人的手机号码" value="{{userInfo.guardianContactInformation}}" bindblur="inputBlur" id="gp"/>
+    </view>
+    <button type="primary" style="margin-left:auto;margin-top:50rpx;margin-right:auto;width:50%;"  bindtap="submitModify" disabled="{{modifyOpreation}}" id='1'>提交</button>
+</view>
+<!--this is the teacher's information block-->
+<view class="user-info" hidden='{{!user_is_teacher}}'>
+    <view class="view-display-row">
+      <text class="user-info-text">用户头像</text>
+      <image class="userinfo-avatar" style="margin-left:100rpx;" src="{{avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">工号</text>
+      <input disabled='true' placeholder="请填写您的一卡通号" value="{{userInfo.teacherNumber}}" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">姓名</text>
+      <input disabled='true' placeholder="请填写您的真实姓名" value="{{userInfo.name}}" />
+    </view>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

@@ -1,0 +1,47 @@
+<!--home.wxml-->
+<template name="home-page">
+  <view class="home-page-view">
+  <!--学生菜单-->
+    <block wx:for="{{studentItem}}" wx:for-item="buttonGroupItem" wx:key="" wx:if="{{!userIsTeacher}}">
+      <view class="home-column-view">
+        <block wx:for="{{buttonGroupItem}}" wx:for-item="buttonGroupItemSub" wx:key="">
+          <block wx:if="{{buttonGroupItemSub.action}}">
+            <view class="home-button" bindtap="{{buttonGroupItemSub.action}}">
+              <text class="iconfont home-button-icon {{'icon-' + buttonGroupItemSub.icon}}" style='color: {{buttonGroupItemSub.color}}'></text>
+              <text class="home-button-text" style='color: {{buttonGroupItemSub.color}}'>{{'\n' + buttonGroupItemSub.text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="home-button home-button-disable"></view>
+          </block>
+        </block>
+      </view>
+    </block>
+    <!--教师菜单-->
+    <block wx:for="{{teacherItem}}" wx:for-item="buttonGroupItem" wx:key="" wx:if="{{userIsTeacher}}">
+      <view class="home-column-view">
+        <block wx:for="{{buttonGroupItem}}" wx:for-item="buttonGroupItemSub" wx:key="">
+          <block wx:if="{{buttonGroupItemSub.action}}">
+            <view class="home-button" bindtap="{{buttonGroupItemSub.action}}">
+              <text class="iconfont home-button-icon {{'icon-' + buttonGroupItemSub.icon}}" style='color: {{buttonGroupItemSub.color}}'></text>
+              <text class="home-button-text" style='color: {{buttonGroupItemSub.color}}'>{{'\n' + buttonGroupItemSub.text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="home-button home-button-disable"></view>
+          </block>
+        </block>
+      </view>
+    </block>
+  </view>
+</template>
+
+<view class="home-title-view">
+  <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" bindtap='jumpuserinfo'></image>
+  <view class="home-userinfo">
+    <text class="userinfo-nickname">{{userInfo.nickName}},您好！</text>
+    <text>{{machineId}}</text>
+  </view>
+</view>
+<!--导航按钮  -->
+<template is="home-page" data="{{...buttonGroup}}" />

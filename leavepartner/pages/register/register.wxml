@@ -1,0 +1,56 @@
+<!--pages/register/register.wxml-->
+<!--this is the choose block-->
+<view class='choose-view' hidden='{{hidden_choose_view}}'>
+  <button type="primary" class='choose-button' bindtap='choose_view_show' id='1'>我是学生</button>
+  <button type="primary" class='choose-button' bindtap='choose_view_show' id='2'>我是教师</button>
+</view>
+<!--this is the student's information block-->
+<view class="user-info" hidden='{{student_block}}'>
+    <text class='return-text' bindtap='show_choose_buttoun'>上一步</text>
+    <view class="view-display-row">
+      <text class="user-info-text">用户头像</text>
+      <image class="userinfo-avatar" style="margin-left:100rpx;" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">账号</text>
+      <input type="number" placeholder="请填写您的一卡通号" value="{{account}}" bindblur="inputBlur" id="a" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">姓名</text>
+      <input type="text" placeholder="请填写您的真实姓名" value="{{name}}" bindblur="inputBlur" id="n" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">联系方式</text>
+      <input type="number" placeholder="请填写您的手机号码" value="{{phone}}" bindblur="inputBlur" id="p" />
+    </view>
+    <view class="user-info-hr"></view>
+    <view class="view-display-row">
+      <text class="user-info-text">监护人</text>
+      <input type="text" placeholder="请填写监护人的真实姓名" value="{{guardian}}" bindblur="inputBlur" id="j" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">联系方式</text>
+      <input type="number" placeholder="请填写监护人的手机号码" value="{{guardian_phone}}" bindblur="inputBlur" id="h" />
+    </view>
+    <button type="primary" style="margin-left:auto;margin-top:50rpx;margin-right:auto;width:50%;"  bindtap="submitModify" disabled="{{isok}}" id='1'>提交</button>
+</view>
+<!--this is the teacher's information block-->
+<view class="user-info" hidden='{{teacher_block}}'>
+  <text class='return-text' bindtap='show_choose_buttoun'>上一步</text>
+    <view class="view-display-row">
+      <text class="user-info-text">用户头像</text>
+      <image class="userinfo-avatar" style="margin-left:100rpx;" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">账号</text>
+      <input type="text" placeholder="请填写您的一卡通号" value="{{t_account}}" bindblur="inputBlur" id="t" />
+    </view>
+    <view class="view-display-row">
+      <text class="user-info-text">姓名</text>
+      <input type="text" placeholder="请填写您的真实姓名" value="{{t_name}}" bindblur="inputBlur" id="tn" />
+    </view>
+    <button type="primary" style="margin-left:auto;margin-top:50rpx;margin-right:auto;width:50%;" bindtap="submitModify" disabled="{{isok}}" id='2'>提交</button>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

@@ -1,0 +1,41 @@
+/* pages/messages/messages.wxss */
+view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.title-text {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+label {
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  font-size: 0.85rem;
+  color: green;
+}
+
+image {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.tipinfo {
+  background-color: #e0e0e0;
+  border-radius: 20rpx;
+  width: 90%;
+  margin-top: 5rpx;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 50rpx;
+  font-size: 0.8rem;
+  color: #909090;
+  padding: 10rpx;
+}

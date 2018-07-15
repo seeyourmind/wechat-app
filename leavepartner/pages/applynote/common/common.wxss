@@ -1,0 +1,80 @@
+/* pages/applynote/common/common.wxss */
+view {
+  margin-top: 5%;
+}
+
+text {
+  margin: 0 3% 0 3%;
+}
+
+.view-main {
+  margin: 5%;
+  border-radius: 10px;
+  border: 1px solid #47D2BD;
+}
+
+.title-text {
+  margin-top: 0;
+  width: 100%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  background-color: #47D2BD;
+  text-align: center;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.row-view {
+  display: flex;
+  flex-direction: row;
+}
+.row-view picker {
+  height:50rpx;
+  width:400rpx;
+  border-bottom: 2rpx solid black;
+  padding-bottom:10rpx;
+}
+
+.input-border {
+  width: 400rpx;
+  border-width: 1px;
+  border-style: none none solid none;
+  border-bottom-color: black;
+}
+
+.column-view {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+  margin-top: -10rpx;
+  border-radius: 10rpx;
+  border: 2rpx solid #808080;
+}
+.column-view picker {
+  width: 250rpx;
+  height: 60rpx;
+  margin-top: -15rpx;
+}
+.column-view picker text {
+  font-size: 0.7rem;
+}
+
+.reason-textarea {
+  width: 500rpx;
+  padding: 10rpx;
+  border: 1px solid black;
+}
+
+button {
+  width: 50%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.commitment {
+  color: green;
+}
+.commitment:active {
+  color: gray;
+}
