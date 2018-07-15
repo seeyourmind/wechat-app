@@ -1,0 +1,20 @@
+<!--change-level.wxml-->
+<form style="margin:10rpx; border: 1rpx solid #e8e8e8; border-radius: 10rpx; padding:0rpx;" bindsubmit="submitForm">
+  <view class="init_title">
+    <text>变更用户级别</text>
+  </view>
+  <view class="init_details">
+    <view style="display: flex; flex-direction: row;">
+      <text class="label-text">用户账号</text>
+      <input name="userid" class="input-user" placeholder="请填写用户手机号" bindblur="getUserRealName" />
+      <text class="label-text" hidden="{{realname.length>0?false:true}}">{{realname}}</text>
+    </view>
+    <view class="view-row">
+      <text class="label-text">选择级别</text>
+      <picker name="userlevel" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class="picker-view" style="color:{{index==0?'#808080':'#444'}}">{{array[index]}}</view>
+      </picker>
+    </view>
+    <button type="primary" style="margin:20rpx auto 10rpx auto; width:50%" form-type="submit" disabled="{{userlv==3?true:false}}" >提交</button>
+  </view>
+</form>

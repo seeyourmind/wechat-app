@@ -1,0 +1,11 @@
+/* change-level.wxss */
+@import "../machine-configure/machine-configure.wxss";
+
+.input-user {
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  margin-left: 10rpx;
+  padding: 10rpx;
+  width: 330rpx;
+  text-align: center;
+}

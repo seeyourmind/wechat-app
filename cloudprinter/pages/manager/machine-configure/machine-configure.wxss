@@ -1,0 +1,61 @@
+/* add-machine.wxss */
+@import "../../proxy/journal-account/journal-account.wxss";
+
+.label-text {
+  overflow-wrap: normal;
+  padding: 10rpx;
+  margin-top: 5rpx;
+}
+
+.picker-view {
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  margin-left: 10rpx;
+  padding: 10rpx;
+  width: 330rpx;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 10rpx;
+  padding: 10rpx;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+}
+
+.input-location {
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  margin-left: 10rpx;
+  padding: 10rpx;
+  width: 200rpx;
+  text-align: center;
+}
+
+.view-row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10rpx;
+}
+
+.view-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.mark-scroll {
+  margin-left: 10rpx;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  width: 70%;
+  min-height: 20rpx;
+  max-height: 200rpx;
+}
+
+.btn-area {
+  display: flex;
+  flex-direction: row;
+  margin:10rpx;
+}

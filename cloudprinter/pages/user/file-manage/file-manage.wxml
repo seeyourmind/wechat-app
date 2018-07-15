@@ -1,0 +1,51 @@
+<!--file-manage.wxml-->
+<!--文件管理条目模板  -->
+<view class="file-manage">
+  <view class="head" wx:if="{{state == 'delete'}}">
+    <checkbox-group class="head-check" bindtap="selectAll">
+      <label style="display: flex;flex-direction: row;" >
+        <view class="head-check-cell">
+          <checkbox checked="{{selectAllChecked}}"/>
+        </view>
+        <view class="head-check-text">{{selectAllChecked ? '取消全选' : '全选'}}</view>
+    </label>
+    </checkbox-group>
+    <button class="head-check-button" bindtap="cancelDelete">
+      <text class="iconfont icon-quxiao"></text>取消
+    </button>
+  </view>
+  <view class="page" style="{{state == 'delete' ? 'margin-top:120rpx;padding-bottom:92rpx;' : 'margin-top:0;padding-bottom:0;'}}">
+    <checkbox-group bindchange="itemSelect">
+      <label wx:for="{{items}}" wx:key="" data-id="{{index}}" bindlongtap="itemLongtap">
+        <view class="page-cell">
+            <view wx:if="{{state == 'delete'}}">
+              <checkbox value="{{index}}" checked="{{itemSelectedId[index]}}"/>
+            </view>
+            <view>
+              <text class="page-cell-icon iconfont icon-{{item.type == 'img' ? icon.img : (item.type == 'pdf' ? icon.pdf : icon.word)}}" hidden="{{item.type=='img'?true:false}}"></text>
+              <image src="http://wxapp.51yin.net.cn/{{item.Attachment}}" mode="aspectFit" style="width:100rpx;height:100rpx" hidden="{{item.type=='img'?false:true}}"></image>
+            </view>
+            <view class="page-cell-info">
+              <text class="page-cell-info-text" style="{{state == 'delete' ? ('width:' + itemWidth.delete + 'rpx') : ('width:' + itemWidth.view + 'rpx')}}">名称：{{item.filename}}</text>
+              <text class="page-cell-info-text">上传时间：{{item.uptime}}</text>
+              <text class="page-cell-info-text">类型：{{item.type == 'img' ? fileType.img : (item.type == 'pdf' ? fileType.pdf : fileType.word)}}</text>
+            </view>
+        </view>
+      </label>
+    </checkbox-group>
+  </view>
+  <view class="foot" wx:if="{{state == 'delete'}}">
+    <!--button class="print-button" bindtap="printFiles">
+        <text class="iconfont icon-dayinji"></text>打印选中文件
+    </button-->
+    <button class="delete-button" bindtap="deleteFiles">
+        <text class="iconfont icon-shanchu"></text>删除选中文件
+    </button>
+  </view>
+</view>
+<view style="width:100%;;bottom: 10rpx;position: fixed;text-align: center;" wx:if="{{touchbottom}}">
+  <text>加载更多...</text>
+</view>
+<loading hidden="{{loadinghidden}}">
+  加载中...
+</loading>

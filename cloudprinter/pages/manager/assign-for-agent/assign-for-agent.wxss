@@ -1,0 +1,75 @@
+/* assign-for-agent.wxss */
+
+.drawer_box {
+  width: 100%;
+  height: 100%;
+  z-index: 1010;
+  background: rgba(0,0,0,0.5);
+  position: fixed;
+}
+.drawer_content {
+  width: 650rpx;
+  position: fixed;
+  opacity: 1;
+  top: 50%;
+  background: #fff;
+  margin: -150px 50rpx 0 50rpx;
+  border-radius: 3px;
+  border-width: 5rpx;
+  border-style: solid;
+  border-top-color: #f0f0f0;
+  border-left-color: #f0f0f0;
+  border-bottom-color: #e0e0e0;
+  border-right-color: #e0e0e0;
+  text-align: center;
+}
+
+.title {
+  background-color: #47d2bd;
+  text-align: center;
+  padding: 20rpx;
+  margin-top: -10rpx;
+  margin-left: -10rpx;
+  margin-right: -10rpx;
+  border-radius: 10rpx 10rpx 0 0;
+}
+
+.btn_ok {
+  padding: 10px;
+  font: 20px "microsoft yahei";
+  text-align: center;
+  border-top: 1px solid #e8e8ea;
+  color: #47d2bd;
+}
+
+.btn_submit {
+  padding:5rpx;
+  font-size: 35rpx;
+  margin-top: 20rpx;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  color: white;
+  background-color: #47d2bd;
+}
+.btn_submit:active {
+  background-color: #34AA92;
+}
+
+picker {
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  text-align: center;
+  width: 400rpx;
+  padding: 10rpx;
+}
+
+.picker-scroll {
+  height:auto; 
+  max-height: 400rpx; 
+  width:400rpx; 
+  border: 1px solid #e8e8e8; 
+  margin-top: 10rpx;
+  padding: 10rpx;
+}

@@ -1,0 +1,33 @@
+<!--machine-info.wxml-->
+<view class="page">
+  <view class="machine-info" >
+    <text class="machine-info-text">机器编号：{{info[0].machineid}}</text>
+    <text class="machine-info-text">机器类型：{{info[0].Boundary}}</text>
+    <text class="machine-info-text">机器位置：{{info[0].address_name}}</text>
+    <view class="machine-info-hr"></view>
+    <text class="machine-info-text">打印价格：{{info[0].dyPrice}}</text>
+    <text class="machine-info-text">复印价格：{{info[0].fyPrice}}</text>
+    <text class="machine-info-text">折扣：{{info[0].ZK}}</text>
+    <view class="machine-info-hr" ></view>
+    <text class="machine-info-text" >机器状态：{{info[0].status}}</text>
+    <text class="machine-info-text" >硬盘型号：{{info[0].HDID}}</text>
+    <text class="machine-info-text" >CPU型号：{{info[0].CPUID}}</text>
+    <text class="machine-info-text" >主板型号：{{info[0].MBID}}</text>
+    <text class="machine-info-text" >配置ID：{{info[0].configID}}</text>
+    <view class="machine-info-hr" ></view>
+    <text class="machine-info-text" >注册时间：{{info[0].regtime}}</text>
+    <text class="machine-info-text" >上线时间：{{info[0].lastonline}}</text>
+    <view class="machine-info-hr" ></view>
+    <text class="machine-info-text" >纸张数量：{{info[0].papers}}</text>
+    <text class="machine-info-text" >墨量：{{info[0].ink}}</text>
+    <text class="machine-info-text" >出纸总量：{{info[0].totalpapers}}</text>
+    <text class="machine-info-text" >备注描述：{{info[0].mark}}</text>
+  </view>
+  <view class="machine-info">
+    <text class="machine-info-text">客服电话：13330146158</text>
+    <button class="machine-info-maintenance-man-call" bindtap="callMaintenanceMan">拨打故障保修电话</button>
+  </view>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

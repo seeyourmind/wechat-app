@@ -1,0 +1,55 @@
+<!--machine-status.wxml-->
+<import src="/wxSearch/wxSearch.wxml"/> 
+<view class="wxSearch-section" >    
+<view class="wxSearch-pancel">        
+<input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" class="wxSearch-input" placeholder="依据地址搜索机器" />        
+<text class="wxSearch-button-me iconfont icon-icon" bindtap="wxSearchFn" ></text>   
+</view> 
+<text class="input-tip">输入格式：地名关键字+空格，如：章贡区 红旗大道</text> 
+</view> 
+<template is="wxSearch" data="{{wxSearchData}}"/>
+
+<view class="page" >
+  <view class="status-info" wx:for="{{statusInfo}}" wx:key="">
+    <text class="status-info-text" >机器编号：{{item.machineid}}</text>
+    <text class="status-info-text" >机器位置：{{item.address_name}}</text>
+    <text class="status-info-text" style="color:{{item.ink < 100?'red':'black'}}" wx:if="{{level!=3}}">墨粉余量：{{item.ink}}</text>
+    <text class="status-info-text" style="color:{{item.papers < 100?'red':'black'}}" wx:if="{{level!=3}}">纸张余量：{{item.papers}}</text>
+    <text class="status-info-text" wx:if="{{item.other}}" >其它操作：{{item.other}}</text>
+    <view style="display: flex; flex-direction: row" >
+      <button id="{{index}}" type="primary" style="width:50%" wx:if="{{level==1}}" bindtap="machineDetail">机器详情</button>
+    </view>
+    <view style="display: flex; flex-direction: row" wx:if="{{level==2}}">
+      <button id="{{index}}" type="primary" bindtap="addInk">加墨</button>
+      <button id="{{index}}" type="primary" bindtap="addPaper">加纸</button>
+      <button id="{{index}}" type="primary" bindtap="other">其它</button>
+    </view>
+    <view style="display: flex; flex-direction: row" wx:if="{{level==3}}">
+      <button id="{{index}}" type="primary" style="width:45%" bindtap="machineDetail">详情</button>
+      <button id="{{index}}" type="primary" style="width:45%" bindtap="machineConfigure">编辑</button>
+    </view>
+  </view>
+</view>
+
+<!--使用animation属性指定需要执行的动画-->
+<view class="drawer_box" animation="{{animationData}}" wx:if="{{showModalStatus}}" >
+  <view class="drawer_content" id="alphacontent">
+  <view class="title">
+  <text class="font-size-l" style="font-weight:bold;color:#fff">{{popupTitle}}</text>
+  </view>
+  <view class="popupinput">
+  <label style="margin: auto 10rpx auto 10rpx; font-size: 50rpx;" hidden="{{inputtype=='text'?true:false}}" bindtap="changeOperation">{{plusorminus}}</label>
+  <input id="{{inputid}}" type="{{inputtype}}" style="margin: auto 0 auto 0;" bindinput="getInputValue"/>
+  </view>
+  <view style="display: flex;flex-direction: row;" >
+  <button type="warn" bindtap="backgroundcancel" style="width:35%;margin-bottom:10rpx;" >取消</button>
+  <button type="primary" bindtap="powerDrawer" data-statu="close" style="width:35%;margin-bottom:10rpx;" disabled="{{submitb}}" >确定</button>
+  </view>
+  </view>
+</view>
+<view style="width:100%;;bottom: 10rpx;position: fixed;text-align: center;" wx:if="{{touchbottom}}">
+  <text>加载更多...</text>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

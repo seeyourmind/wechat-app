@@ -1,0 +1,49 @@
+<!--person-info.wxml-->
+<view class="page">
+  <view class="machine-info">
+    <view class="view-display-row">
+      <text class="machine-info-text">用户头像</text>
+      <image class="userinfo-avatar" style="margin-left:100rpx;" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="view-display-row">
+      <text class="machine-info-text">用户账号 {{account}}</text>
+    </view>
+    <view class="view-display-row">
+      <text class="machine-info-text">用户级别 {{level==0?'普通用户':level==1?'代理商':level==2?'维护员':'超级管理员'}}</text>
+    </view>
+    <view class="machine-info-hr"></view>
+    <view class="view-display-row">
+      <text class="machine-info-text">姓名</text>
+      <input type="text" placeholder="请填写您的真实姓名" value="{{name}}" bindblur="inputBlur" id="n" />
+    </view>
+    <view class="view-display-row">
+      <text class="machine-info-text">性别</text>
+      <picker mode="selector" value="{{index}}" range="{{sexarray}}" bindchange="bindDateChange" id="1">
+          <view class="picker_input" style="margin:10rpx;width:400rpx;height:50rpx;color:{{sexarray[index]=='请选择您的性别'?'#808080':'#000'}}">{{sexarray[index]}}</view>
+      </picker>
+    </view>
+    <view class="view-display-row">
+      <text class="machine-info-text">生日</text>
+      <picker mode="date" value="{{today}}" end="{{today}}" bindchange="bindDateChange" id="2">
+          <view class="picker_input" style="margin:10rpx;width:400rpx;height:50rpx;color:{{birthday=='请选择您的生日'?'#808080':'#000'}}">{{birthday}}</view>
+      </picker>
+    </view>
+    <view class="machine-info-hr"></view>
+    <view class="view-display-row">
+      <text class="machine-info-text">手机号码</text>
+      <input type="text" placeholder="请填写您的手机号码" value="{{phone}}" bindblur="inputBlur" id="p" />
+    </view>
+    <view class="view-display-row">
+      <text class="machine-info-text">身份证号</text>
+      <input type="text" placeholder="请填写您的身份证号码" value="{{identification}}" bindblur="inputBlur" id="i" />
+    </view>
+    <view class="view-display-row">
+      <text class="machine-info-text">家庭住址</text>
+      <input type="text" placeholder="请填写您的家庭住址" value="{{homeaddress}}" bindblur="inputBlur" id="h" />
+    </view>
+    <button type="primary" style="margin-left:auto; margin-right:auto;width:50%;" bindtap="submitModify" disabled="{{isok}}">提交</button>
+  </view>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

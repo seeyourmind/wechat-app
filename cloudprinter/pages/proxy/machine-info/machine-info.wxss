@@ -1,0 +1,38 @@
+/* machine-info.wxss */
+page{
+  background-color: #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.machine-info{
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20rpx;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  margin: 10rpx;
+}
+
+.machine-info-text{
+  margin: 10rpx;
+  padding: 10rpx;
+}
+
+.machine-info-hr{
+  border: 1rpx solid #e8e8e8;
+}
+
+.machine-info-maintenance-man-call{
+  width: 100%;
+  margin-top: 20rpx;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+
+.machine-info-maintenance-man-call:active {
+  background-color: #D60808;
+}

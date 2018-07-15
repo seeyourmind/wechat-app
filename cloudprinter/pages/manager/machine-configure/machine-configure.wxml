@@ -1,0 +1,57 @@
+<!--add-machine.wxml-->
+
+<view class="init_title" style="margin:20rpx 10rpx 0 10rpx;">
+  <text>更新机器配置</text>
+</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <text class="label-text">机器编号  {{machineid}}</text>
+  <view class="view-row">
+    <text class="label-text">机器状态</text>
+    <picker id="1" name="status" bindchange="bindPickerChange" value="{{index_status}}" range="{{array_status}}">
+      <view class="picker-view" style="color:{{index_status==0?'#808080':'#444'}}">{{array_status[index_status]}}</view>
+    </picker>
+  </view>
+  <view class="view-row">
+    <text class="label-text" style="margin-top: 5rpx;" >经度 {{lng!=null?lng:''}}</text>
+    <text class="label-text" style="margin-left:60rpx; margin-top:5rpx;">纬度 {{lat!=null?lat:''}}</text>
+  </view>
+  <view class="view-column" bindtap="getLocationDetail">
+    <text class="label-text">详细地址</text>
+    <text style="padding-left:10rpx; color:#444;">{{name.length>0?name:'不确定经纬度点击这里'}}</text>
+    <text class="over-nowrap" style="color:#808080; font-size:30rpx; padding-left:10rpx; margin-bottom:10rpx;">{{address.length>0?address:''}}</text>
+  </view>
+  <view class="view-row">
+    <text class="label-text">地址备注</text>
+    <textarea name="address_mark" type="text" confirm-type="done" placeholder="如果定位不准确，请填在此处填写备注信息" class="mark-scroll" style="word-wrap: break-word; max-height: 100rpx;" value="{{address_mark}}" />
+  </view>
+  <view class="view-row">
+    <text class="label-text">配置文件</text>
+    <picker id="3" name="configure" bindchange="bindPickerChange" value="{{index_configure}}" range="{{array_config}}">
+      <view class="picker-view" style="color:{{index_configure==0?'#808080':'#444'}}">{{array_config[index_configure]}}</view>
+    </picker>
+  </view>
+  <view class="view-row">
+    <text class="label-text" style="margin-top: 5rpx;">代理商家</text>
+    <picker id="4" name="agent" bindchange="bindPickerChange" value="{{index_agent}}" range="{{array_agent}}">
+      <view class="picker-view" style="color:{{index_agent==0?'#808080':'#444'}}">{{array_agent[index_agent]}}</view>
+    </picker>
+  </view>
+  <view class="view-row">
+    <text class="label-text" style="margin-top: 5rpx;">维护人员</text>
+    <picker id="5" name="maintainer" bindchange="bindPickerChange" value="{{index_maintainer}}" range="{{array_maintain}}">
+      <view class="picker-view" style="color:{{index_maintainer==0?'#808080':'#444'}}">{{array_maintain[index_maintainer]}}</view>
+    </picker>
+  </view>
+  <view class="view-row">
+    <text class="label-text" style="margin-top: 5rpx;">备注描述</text>
+    <textarea name="mark" type="text" confirm-type="done" placeholder="请填写备注描述" class="mark-scroll" style="word-wrap: break-word;" value="{{configmark}}"/>
+  </view>
+  <view class="btn-area">
+    <button formType="submit" type="primary" disabled="{{isok}}">提交</button>
+    <button formType="reset" type="warn">重置</button>
+  </view>
+</form>
+
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

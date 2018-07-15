@@ -1,0 +1,72 @@
+/* upload-file.wxss */
+
+.select-img {
+  font-size: 200rpx;
+  height: 100vh;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+}
+
+.img-view {
+  /* display: flex;
+  flex-direction: row; */
+}
+
+.img-item-view {
+  width: 250rpx;
+  height: 250rpx;
+  float: left;
+}
+
+.img-item {
+  width: 240rpx;
+  height: 240rpx;
+  padding: 5rpx;
+}
+
+.img-cancel {
+  width: 38rpx;
+  height: 38rpx;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.img-cancel-text {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.re-add-img {
+  position: fixed;
+  right: 0;
+  top: 400rpx;
+  background-color: #999;
+  color: #FFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.re-add-img-plus-icon {
+  font-size: 100rpx;
+  text-align: center;
+}
+
+.re-add-img-text {
+  font-size: 25rpx;
+}
+
+.foot {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.submit {
+  width: 100%;
+}

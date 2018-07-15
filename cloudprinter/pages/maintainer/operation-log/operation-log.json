@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "机器操作日志",
+  "backgroundColor": "#555",
+  "enablePullDownRefresh": true
+}

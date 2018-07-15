@@ -1,0 +1,14 @@
+/* person-info.wxss */
+@import "../../proxy/machine-info/machine-info.wxss";
+@import "../../home/home.wxss";
+@import "../../proxy/journal-account/journal-account.wxss";
+
+input{
+  margin: 10rpx;
+  padding: 10rpx;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  width: 400rpx;
+  height:50rpx;
+  text-align: center;
+}

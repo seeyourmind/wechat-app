@@ -1,0 +1,44 @@
+<!--assign-for-maintainer.wxml-->
+
+<!--使用animation属性指定需要执行的动画-->
+<view class="drawer_box" style="margin-top:-10rpx;" animation="{{animationData}}" wx:if="{{showModalStatus}}">
+  <view class="drawer_content">
+    <text class="font-size-l">选择要分配的机器</text>
+    <scroll-view style="height:450rpx; margin-bottom: 10rpx;" scroll-y>
+      <!--drawer content-->
+      <checkbox-group bindchange="checkboxChange">
+        <label class="view-display-row card-style" wx:for="{{items}}">
+        <checkbox style="display: flex;align-items: center;" value="{{item.machineid}}" checked="{{item.checked}}"/>
+        <view class="view-display-column">
+          <text class="font-size-s">机器编号：{{item.machineid}}</text>
+          <text class="font-size-s">机器位置：{{item.address_name}}</text>
+        </view>
+      </label>
+      </checkbox-group>
+    </scroll-view>
+    <view class="view-display-row">
+      <button type="warn" bindtap="powerDrawer" id="d" data-statu="close">删除机器</button>
+      <button type="primary" bindtap="powerDrawer" id="u" data-statu="close">新增机器</button>
+    </view>
+  </view>
+</view>
+
+<view class="card-style">
+  <view class="view-display-row">
+    <text class="font-size-l">维护商ID：</text>
+    <picker mode="selector" range="{{array}}" value="{{index}}" bindchange="bindDateChange">
+      <text class="picker">{{array[index]}}</text>
+    </picker>
+  </view>
+  <view class="view-display-row">
+    <text class="font-size-l">划分机器：</text>
+    <scroll-view class="picker-scroll" scroll-x bindtap="showMenu">
+      <text class="font-size-m" style="color: #808080">{{chooseMachines}}</text>
+    </scroll-view>
+  </view>
+  <button class="btn_submit" wx:if="{{showSubmitBtn}}" bindtap="submitToService">提交</button>
+</view>
+
+<loading hidden="{{loadinghidden}}">
+  加载中...
+</loading>

@@ -1,0 +1,26 @@
+<!--order-details.wxml-->
+<view class="order-details">
+  <view class="page">
+    <view class="page-cell" wx:for="{{items}}" wx:key="">
+      <view>
+        <text class="page-cell-icon iconfont icon-{{item.paytype == '微信' ? 'weixin' : 'zhifubao'}}"></text>
+      </view>
+      <view class="page-cell-info">
+        <text class="page-cell-info-text">订单时间：{{item.time}}</text>
+        <text class="page-cell-info-text">云印机号：{{item.machineid}}</text>
+        <text class="page-cell-info-text">订单总价：{{(item.Amount.length>0?item.Amount:0)+'元'}}</text>
+        <view class="page-cell">
+        <text class="page-cell-info-text">支付类型：{{item.paytype}}</text>
+        <text class="page-cell-info-text" style="margin-left:15rpx;color:{{item.paystatus=='0'?'red':'#47D2BD'}}">{{item.paystatus=='0'?'未支付':'已支付'}}</text>
+        <text class="page-cell-info-text" style="margin-left:15rpx;color:{{item.paystatus=='0'?'red':'#47D2BD'}}">{{item.printstatus=='0'?'未打印':'已打印'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view style="width:100%;;bottom: 10rpx;position: fixed;text-align: center;" wx:if="{{touchbottom}}">
+  <text>加载更多...</text>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

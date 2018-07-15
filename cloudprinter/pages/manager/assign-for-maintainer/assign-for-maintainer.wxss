@@ -1,0 +1,2 @@
+/* assign-for-maintainer.wxss */
+@import "../assign-for-agent/assign-for-agent.wxss";

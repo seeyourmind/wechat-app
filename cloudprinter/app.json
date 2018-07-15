@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/user/order-details/order-details",
+    "pages/user/upload-file/upload-file",
+    "pages/user/near-machine/near-machine",
+    "pages/user/file-manage/file-manage",
+    "pages/user/person-info/person-info",
+    "pages/proxy/machine-info/machine-info",
+    "pages/proxy/update-price/update-price",
+    "pages/proxy/journal-account/journal-account",
+    "pages/proxy/machine-status/machine-status",
+    "pages/maintainer/machine-error/machine-error",
+    "pages/maintainer/operation-log/operation-log",
+    "pages/maintainer/maintain-log/maintain-log",
+    "pages/manager/assign-for-agent/assign-for-agent",
+    "pages/manager/assign-for-maintainer/assign-for-maintainer",
+    "pages/manager/machine-configure/machine-configure",
+    "pages/manager/change-level/change-level"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#47D2BD",
+    "navigationBarTitleText": "博纳思云印机",
+    "navigationBarTextStyle": "light",
+    "backgroundTextStyle": "light"
+  },
+  "debug": true
+}

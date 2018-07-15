@@ -1,0 +1,84 @@
+/* update-pricewxss */
+
+page{
+  background-color: #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.card_background{
+  border-radius: 10rpx;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.dyj_info{
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+}
+.dyj_info_icon{
+  font-size: 70rpx;
+  color: #47d2bd;
+  margin-left: 10rpx;
+  padding: 10rpx;
+}
+.dyj_info_details{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+}
+.dyj_info_text{
+  text-align: left;
+  font-size: 30rpx;
+  color: #555;
+  margin-bottom: 10rpx;
+}
+.dyj_price{
+  display: flex;
+  flex-direction: row;
+}
+.dyj_price_details{
+  display: flex;
+  flex-direction: column;
+}
+.dyj_price_show{
+  display: flex;
+  flex-direction: row;
+}
+.dyj_price_text{
+  font-size: 32rpx;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+}
+.dyj_price_input{
+  border-radius: 10rpx;
+  border: 1px solid #47d2bd;
+  width: 50%;
+  font-size: 32rpx;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+  padding:0 5px;
+  vertical-align: middle;
+}
+.dyj_price_button{
+  border-radius: 10rpx;
+  width: 25%;
+  line-height: 120rpx;
+  height: 120rpx;
+  background-color: #47d2bd;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 10rpx;
+}
+.dyj_price_button:active {
+  background-color: #34AA92;
+}

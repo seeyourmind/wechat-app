@@ -1,0 +1,24 @@
+<!--upload-file.wxml-->
+<view class="upload-file">
+  <view class="head">
+    <view wx:if="{{imglist.length == 0}}" class="select-img" bindtap="addImg">
+      <text>+</text>
+    </view>
+  </view>
+  <view class="img-view">
+    <view class="img-item-view" wx:for="{{imglist}}" wx:key="">
+      <view class="img-cancel" data-index="{{index}}" bindtap="cancelImg"><text class="iconfont icon-quxiao1 img-cancel-text"></text></view>
+      <image mode="aspectFit" class="img-item" bindtap="ylimg" data-src="{{item}}" src="{{item}}"></image>
+    </view>
+  </view>
+  <view class="foot">
+    <button class="submit" bindtap="addImg" wx:if="{{imglist.length}}"><text class="iconfont icon-quxiao"></text>重新添加</button>
+    <button class="submit" type="primary" bindtap="bindFormSubmit" wx:if="{{imglist.length}}">
+    <text class="iconfont icon-shangchuan1"></text>提交
+    </button>
+  </view>
+</view>
+
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

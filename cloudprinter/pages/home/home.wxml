@@ -1,0 +1,85 @@
+<!--home.wxml-->
+<template name="home-page">
+  <view class="home-page-view">
+  <!--用户菜单-->
+    <block wx:for="{{useritem}}" wx:for-item="buttonGroupItem" wx:key="">
+      <view class="home-column-view">
+        <block wx:for="{{buttonGroupItem}}" wx:for-item="buttonGroupItemSub" wx:key="">
+          <block wx:if="{{buttonGroupItemSub.action}}">
+            <view class="home-button" bindtap="{{buttonGroupItemSub.action}}">
+              <text class="iconfont home-button-icon {{'icon-' + buttonGroupItemSub.icon}}"></text>
+              <text class="home-button-text">{{'\n' + buttonGroupItemSub.text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="home-button home-button-disable"></view>
+          </block>
+        </block>
+      </view>
+    </block>
+  <!--代理商菜单-->
+    <block wx:for="{{agentitem}}" wx:for-item="buttonGroupItem" wx:key="" wx:if="{{authority==1||authority==3}}">
+      <view class="home-column-view">
+        <block wx:for="{{buttonGroupItem}}" wx:for-item="buttonGroupItemSub" wx:key="">
+          <block wx:if="{{buttonGroupItemSub.action}}">
+            <view class="home-button" bindtap="{{buttonGroupItemSub.action}}">
+              <text class="iconfont home-button-icon {{'icon-' + buttonGroupItemSub.icon}}"></text>
+              <text class="home-button-text">{{'\n' + buttonGroupItemSub.text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="home-button home-button-disable"></view>
+          </block>
+        </block>
+      </view>
+    </block>
+  <!--维护员菜单-->
+    <block wx:for="{{maintainitem}}" wx:for-item="buttonGroupItem" wx:key="" wx:if="{{authority==2||authority==3}}">
+      <view class="home-column-view">
+        <block wx:for="{{buttonGroupItem}}" wx:for-item="buttonGroupItemSub" wx:key="">
+          <block wx:if="{{buttonGroupItemSub.action}}">
+            <view class="home-button" bindtap="{{buttonGroupItemSub.action}}">
+              <text class="iconfont home-button-icon {{'icon-' + buttonGroupItemSub.icon}}"></text>
+              <text class="home-button-text">{{'\n' + buttonGroupItemSub.text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="home-button home-button-disable"></view>
+          </block>
+        </block>
+      </view>
+    </block>
+  <!--管理员菜单-->
+    <block wx:for="{{manageritem}}" wx:for-item="buttonGroupItem" wx:key="" wx:if="{{authority==3}}">
+      <view class="home-column-view">
+        <block wx:for="{{buttonGroupItem}}" wx:for-item="buttonGroupItemSub" wx:key="">
+          <block wx:if="{{buttonGroupItemSub.action}}">
+            <view class="home-button" bindtap="{{buttonGroupItemSub.action}}">
+              <text class="iconfont home-button-icon {{'icon-' + buttonGroupItemSub.icon}}"></text>
+              <text class="home-button-text">{{'\n' + buttonGroupItemSub.text}}</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="home-button home-button-disable"></view>
+          </block>
+        </block>
+      </view>
+    </block>
+  </view>
+</template>
+
+<view class="home-title-view">
+  <view class="home-userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" bindtap="modifyPersonInfo"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class="home-machine-state">
+    <text>{{machineId}}</text>
+  </view>
+</view>
+<!--导航按钮  -->
+<template is="home-page" data="{{...buttonGroup}}" />
+
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

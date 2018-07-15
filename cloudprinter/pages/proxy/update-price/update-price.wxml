@@ -1,0 +1,30 @@
+<!--update-price.wxml-->
+  <view class="page">
+    <view class="card_background" wx:for="{{item}}" wx:key="">
+      <view class="dyj_info">
+        <text class="dyj_info_icon iconfont icon-dayinji"></text>
+        <view class="dyj_info_details">
+          <text class='dyj_info_text'>配置文件ID：{{item.configID}}</text>
+          <text class='dyj_info_text'>配置文件备注：{{item.configRemark}}</text>
+        </view>
+      </view>
+      <view class="dyj_price">
+        <view class="dyj_price_details">
+          <view class="dyj_price_show">
+            <text class="dyj_price_text">打印价格：</text>
+            <input class="dyj_price_input" id="{{item.configID}}_print" placeholder="{{item.dyPrice}}" type="digit" confirm-type="done" bindinput="changePrice" value="{{print[index]}}" />
+            <text class="dyj_price_text">元</text>
+          </view>
+          <view class="dyj_price_show">
+            <text class="dyj_price_text">复印价格：</text>
+            <input class="dyj_price_input" id="{{item.configID}}_copy" placeholder="{{item.fyPrice}}" type="digit" confirm-type="done" bindinput="changePrice" value="{{copy[index]}}" />
+            <text class="dyj_price_text">元</text>
+          </view>
+        </view>
+        <button class="dyj_price_button" id="{{item.configID}}" bindtap="submitPrice">提交</button>
+      </view>
+    </view>
+  </view>
+  <loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>

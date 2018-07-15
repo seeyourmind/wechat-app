@@ -1,0 +1,36 @@
+/* order-details.wxss */
+page{
+  background-color: #E8E8E8;
+}
+
+.page{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 15rpx;
+}
+.page-cell{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #FFF;
+  border-radius: 10rpx;
+  margin: 15rpx;
+  padding: 10rpx;
+}
+.page-cell-icon{
+  font-size: 60rpx;
+  padding: 0 20rpx;
+  color: #47D2BD;
+}
+.page-cell-info{
+  display: flex;
+  flex-direction: column;
+}
+.page-cell-info-text{
+  font-size: 32rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #555;
+}

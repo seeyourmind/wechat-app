@@ -1,0 +1,21 @@
+<!--operation-log.wxml-->
+<view class="page">
+  <view class="error-info" wx:for="{{operationInfo}}" wx:key="">
+    <view class="label-text">
+      <text class="error-info-text">机器编号：</text>
+      <text class="error-info-text">操作时间：</text>
+      <text class="error-info-text">操作内容：</text>
+    </view>
+    <view class="content-text">
+      <text class="error-info-text">{{item.machineid}}</text>
+      <text class="error-info-text">{{item.logtime}}</text>
+      <text class="error-info-text">{{item.action}}</text>
+    </view>
+  </view>
+</view>
+<view style="width:100%;;bottom: 10rpx;position: fixed;text-align: center;" wx:if="{{touchbottom}}">
+  <text>加载更多...</text>
+</view>
+<loading hidden="{{loadinghidden}}">
+    加载中...
+</loading>
