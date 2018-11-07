@@ -5,6 +5,7 @@ var wechatId = null;
 var pay_msg = null;
 var begin = 30;
 var paycheck = true;
+var windowInfo = 0;
 
 Page({
 
@@ -25,19 +26,24 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        windowInfo = res.windowHeight;
+      },
+    });
     wx.login({
       success: function (res) {
-        console.log('res->'+HOST,res)
+        // console.log('res->'+HOST,res)
         loginRequest(res.code, function(){
           that.setData({
             plates_hist: wx.getStorageSync('plates')
           });
         });
         
-        console.log('onload plates:', that.data.plates_hist);
+        // console.log('onload plates:', that.data.plates_hist);
       },
       fail: function (err) {
-        console.log('err->',err)
+        // console.log('err->',err)
         wx.showModal({
           title: '异常信息',
           content: '服务器正在维护中...',
@@ -110,6 +116,14 @@ Page({
       checkPlate: e.detail.value
     });
   },
+  clickHide: function(e){
+    // console.log('click view to hide the select panel', e.detail.y, windowInfo*0.4)
+    var that = this;
+    if ((e.detail.y <= windowInfo*0.2 || e.detail.y >= windowInfo*0.4) && that.data.selected){
+      // console.log('select panel will be closed')
+      changeSelectedStatus(that, true);
+    }
+  },
 
   /**
    * 点击label，下拉面板的显示
@@ -136,7 +150,7 @@ Page({
     var plate = this.data.checkPlate ? this.data.checkPlate: '';
     var wechatid = wx.getStorageSync('wechatID');
     var that = this;
-    console.log(plate, wechatid);
+    // console.log(plate, wechatid);
     wx.request({
       url: HOST + '/car_owner/get_parking_fee',
       data: {
@@ -148,7 +162,7 @@ Page({
       success: function(res){
         if(res.data.state === 'SUCCEED'){
           pay_msg = res.data.message
-          console.log(pay_msg);
+          // console.log(pay_msg);
           
           if (parseInt(pay_msg.parkingactfee)<=0){
             that.setData({
@@ -178,7 +192,7 @@ Page({
         }
       },
       fail: function(err){
-        console.log(err);
+        // console.log(err);
         wx.showModal({
           title: 'Sorry~~~',
           content: '服务器被坏小孩破坏了，程序猿小哥哥正在努力修复中。。。',
@@ -199,7 +213,7 @@ Page({
     var orderid = pay_msg? pay_msg.orderid:'';
     var wechatid = wx.getStorageSync('wechatID');
     if(wechatid.length>1 && orderid.length>1){
-      console.log('orderid:', orderid)
+      // console.log('orderid:', orderid)
       wx.request({
         url: HOST + '/car_owner/get_order_pay_parameters',
         data: {
@@ -209,7 +223,7 @@ Page({
         dataType: 'json',
         method: 'POST',
         success: function (res) {
-          console.log(res);
+          // console.log(res);
           if(res.data.state === 'SUCCEED') {
             var pay_auth = res.data.message;
             that.setData({
@@ -223,10 +237,10 @@ Page({
               signType: pay_auth.signType,
               paySign: pay_auth.paySign,
               success: function (res) {
-                console.log(res)
+                // console.log(res)
               },
               fail: function (err) {
-                console.log(err)
+                // console.log(err)
                 wx.showModal({
                   title: '异常信息',
                   content: err.errMsg === 'requestPayment:fail cancel' ? '支付异常：您已取消支付' : err.err_desc,
@@ -243,7 +257,7 @@ Page({
           }
         },
         fail: function (err) {
-          console.log(res);
+          // console.log(res);
         }
       });
     } else {
@@ -284,15 +298,15 @@ function loginRequest(code, func) {
     dataType: 'json',
     method: 'POST',
     success: function (res) {
-      console.log(res.data)
+      // console.log(res.data)
       if (res.data.state === 'SUCCEED') {
         wechatId = res.data.message.wechatId
         // console.log(wechatId)
         wx.setStorageSync('wechatID', wechatId);
         wx.setStorageSync('carport', res.data.message.carport ? res.data.message.carport:'');
         wx.setStorageSync('plate', (Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0].length > 0 ? (Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0]:'');// 直接返回给我车牌
-        console.log((Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0]);
-        console.log('on loginRequst plates:', res.data.message.plates)
+        // console.log((Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0]);
+        // console.log('on loginRequst plates:', res.data.message.plates)
         wx.setStorageSync('plates', res.data.message.plates ? res.data.message.plates:[]);
         wx.setStorageSync('name', res.data.message.name ? res.data.message.name:'');
         wx.setStorageSync('phone', res.data.message.phoneNumber ? res.data.message.phoneNumber:'');
@@ -309,7 +323,12 @@ function loginRequest(code, func) {
       }
     },
     fail: function (err) {
-      console.log(err)
+      // console.log(err)
+      wx.showModal({
+        title: 'Sorry~~~',
+        content: '服务器被坏小孩破坏了，程序猿小哥哥正在努力修复中。。。',
+        showCancel: false
+      });
     }
   });
 }

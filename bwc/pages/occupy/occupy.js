@@ -26,7 +26,7 @@ Page({
     var plate = wx.getStorageSync('plate');
     var phone = wx.getStorageSync('phone');
     var that = this;
-    console.log('on load:', name + ':' + plate + ':' + phone)
+    // console.log('on load:', name + ':' + plate + ':' + phone)
     if (name.length && plate.length && phone.length) {
       that.setData({
         login: true
@@ -84,7 +84,7 @@ Page({
   },
 
   getCarOwnerInfo: function (e) {
-    console.log(e)
+    // console.log(e)
     var that = this;
     var current_id = e.detail.target.id;
     var search_plate = e.detail.value.searchPlate;
@@ -105,14 +105,14 @@ Page({
   },
 
   getCarOwnerPanel: function (e) {
-    console.log('form发生了submit事件，携带数据为：', )
+    // console.log('form发生了submit事件，携带数据为：', )
     var that = this;
     var name = e.detail.value.name;
     var plate = e.detail.value.plate;
     var phone = e.detail.value.phone;
       
     checkUserLogin(wechatID, name, plate, phone, function(){
-      console.log('get car owner panel: ', name+plate+phone);
+      // console.log('get car owner panel: ', name+plate+phone);
       that.setData({
         login: true
       });
@@ -121,7 +121,7 @@ Page({
 });
 
 function checkUserLogin(wechatID, name, plate, phone, func) {
-  console.log('check user login:', wechatID+name+phone+plate)
+  // console.log('check user login:', wechatID+name+phone+plate)
   wx.request({
     url: HOST + '/school_car_owner/login',
     data: {
@@ -133,13 +133,13 @@ function checkUserLogin(wechatID, name, plate, phone, func) {
     dataType: 'json',
     method: 'POST',
     success: function (res) {
-      console.log(res)
+      // console.log(res)
       if (res.data.state === 'SUCCEED') {
-        console.log('check user login return[S]: ', name + plate + phone)
+        // console.log('check user login return[S]: ', name + plate + phone)
         wx.setStorageSync('name', name);
         wx.setStorageSync('phone', phone);
         wx.setStorageSync('plate', plate);
-        console.log('wx set storage sync: ', wx.getStorageSync('name') + wx.getStorageSync('phone') + wx.getStorageSync('plate'))
+        // console.log('wx set storage sync: ', wx.getStorageSync('name') + wx.getStorageSync('phone') + wx.getStorageSync('plate'))
         func();
       } else {
         wx.showModal({
@@ -150,7 +150,7 @@ function checkUserLogin(wechatID, name, plate, phone, func) {
       }
     },
     fail: function (err) {
-      console.log(err)
+      // console.log(err)
     }
   });
 }
@@ -165,7 +165,7 @@ function findUserInfoWithPlate(wechatID, search_plate, func){
     method: 'post',
     dataType: 'json',
     success: function (res) {
-      console.log(res)
+      // console.log(res)
       if (res.data.type === 'S') {
         func();
       } else if (res.data.type === 'O') {
@@ -183,7 +183,7 @@ function findUserInfoWithPlate(wechatID, search_plate, func){
       }
     },
     fail: function (err) {
-      console.log(err)
+      // console.log(err)
       wx.showModal({
         title: '异常信息',
         content: '服务器正在维护...',
