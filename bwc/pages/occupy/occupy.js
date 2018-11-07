@@ -94,7 +94,7 @@ Page({
         break;
       case '2':
         wx.makePhoneCall({
-          phoneNumber: '12345678801',
+          phoneNumber: that.data.carowner.phoneNumber,
         });
         break;
     }
