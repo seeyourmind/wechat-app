@@ -113,6 +113,14 @@ Page({
         login: true
       });
     });
+  },
+
+  flashInterface: function () {
+    var that = this;
+    that.setData({
+      search: false,
+      carowner: {}
+    })
   }
 });
 

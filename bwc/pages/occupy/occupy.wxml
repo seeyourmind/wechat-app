@@ -29,7 +29,7 @@
     </view>
   </view>
   <form bindsubmit="getCarOwnerInfo">
-    <input name="searchPlate" class="number-plate-input" placeholder="请输入车牌[无需输入空格]"></input>
+    <input name="searchPlate" class="number-plate-input" placeholder="请输入车牌[无需输入空格]" bindfocus="flashInterface"></input>
     <button form-type="submit" class="submit-button" type="primary" id="{{search?2:1}}">{{search?'拨打车主电话':'查找'}}</button>
   </form>
   <block wx:if="{{search}}">
