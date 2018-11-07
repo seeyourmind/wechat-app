@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/parking-fee/parking-fee",
+    "pages/occupy/occupy",
+    "pages/occupy/car-owner/car-owner"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "江理自助Parking",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor": "#1296db",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/parking-fee/parking-fee",
+        "text": "临时停车收费",
+        "iconPath": "image/parking.png",
+        "selectedIconPath": "image/parking-selected.png"
+      },
+      {
+        "pagePath": "pages/occupy/occupy",
+        "text": "占位车主电话查询",
+        "iconPath": "image/occupy.png",
+        "selectedIconPath": "image/occupy-selected.png"
+      }
+    ],
+    "position": "bottom"
+  }
+}

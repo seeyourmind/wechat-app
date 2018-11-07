@@ -1,0 +1,56 @@
+<!--pages/occupy/occupy.wxml-->
+<block wx:if="{{!login}}">
+  <view class="title-view-login">
+    <i class="iconfont icon-iconfonthoudongfangiconfont01 title-icon-login" />
+    <text>登录，以验证您的信息</text>
+  </view>
+  <form bindsubmit="getCarOwnerPanel">
+    <view class="form-view">
+      <i class="iconfont icon-mingpian2 label-icon" />
+      <text>请输入您的姓名</text>
+      <input name="name" placeholder="输入姓名"></input>
+      <i class="iconfont icon-chepai label-icon" />
+      <text>请输入您的车牌号[请勿输入车牌间空格]</text>
+      <input name="plate" placeholder="输入车牌号"></input>
+      <i class="iconfont icon-shouji label-icon" />
+      <text>请输入您预留在保卫处的手机号</text>
+      <input name="phone" placeholder="输入手机号"></input>
+    </view>
+    <button form-type="submit" class="submit-button" type="primary">确定</button>
+  </form>
+</block>
+<block wx:if="{{login}}">
+  <!--pages/occupy/car-owner/car-owner.wxml-->
+  <view class="title-view">
+    <i class="iconfont icon-chepai title-icon" />
+    <view>
+      <text>请输入您的车牌</text>
+      <text class="warming-msg">请勿输入车牌号间的空格</text>
+    </view>
+  </view>
+  <form bindsubmit="getCarOwnerInfo">
+    <input name="searchPlate" class="number-plate-input" placeholder="请输入车牌[无需输入空格]"></input>
+    <button form-type="submit" class="submit-button" type="primary" id="{{search?2:1}}">{{search?'拨打车主电话':'查找'}}</button>
+  </form>
+  <block wx:if="{{search}}">
+    <view class="car-owner-msg-view">
+      <i class="iconfont icon-mingpian msg-title" />
+      <view class="msg-group">
+        <i class="iconfont icon-mingpian2" />
+        <text>姓名：{{carowner.name}}</text>
+      </view>
+      <view class="msg-group">
+        <i class="iconfont icon-chepai" />
+        <text>车牌：{{carowner.plate}}</text>
+      </view>
+      <view class="msg-group">
+        <i class="iconfont icon-shouji" />
+        <text>电话：{{carowner.phone}}</text>
+      </view>
+      <view class="msg-group">
+        <i class="iconfont icon-dingwei" />
+        <text>车位：{{carowner.location}}</text>
+      </view>
+    </view>
+  </block>
+</block>

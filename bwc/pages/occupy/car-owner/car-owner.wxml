@@ -1,0 +1,29 @@
+<!--pages/occupy/car-owner/car-owner.wxml-->
+<view class="title-view">
+  <i class="iconfont icon-chepai title-icon" />
+  <view>
+    <text>请输入您的车牌</text>
+    <text class="warming-msg">请勿输入车牌号间的空格</text>
+  </view>
+</view>
+<input class="number-plate-input" placeholder="请输入车牌[无需输入空格]"></input>
+<view class="car-owner-msg-view">
+<i class="iconfont icon-mingpian msg-title" />
+<view class="msg-group">
+  <i class="iconfont icon-mingpian2" />
+  <text>姓名：{{carowner.name}}</text>
+</view>
+<view class="msg-group">
+  <i class="iconfont icon-chepai" />
+  <text>车牌：{{carowner.plate}}</text>
+</view>
+<view class="msg-group">
+  <i class="iconfont icon-shouji" />
+  <text>电话：{{carowner.phone}}</text>
+</view>
+<view class="msg-group">
+  <i class="iconfont icon-dingwei" />
+  <text>车位：{{carowner.location}}</text>
+</view>
+</view>
+<button class="submit-button" type="primary">拨打车主电话</button>
