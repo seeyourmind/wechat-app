@@ -8,12 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    carowner: {
-      name: '李四',
-      plate: '赣B 14725',
-      phone: 12345678801,
-      location: '江西理工大学图书馆后XXX'
-    },
+    carowner: {},
     search: false,
     login: false
   },
@@ -23,7 +18,7 @@ Page({
    */
   onLoad: function (options) {
     var name = wx.getStorageSync('name');
-    var plate = wx.getStorageSync('plate');
+    var plate = wx.getStorageSync('plate') ? wx.getStorageSync('plate') : '';
     var phone = wx.getStorageSync('phone');
     var that = this;
     // console.log('on load:', name + ':' + plate + ':' + phone)
@@ -90,9 +85,10 @@ Page({
     var search_plate = e.detail.value.searchPlate;
     switch(current_id){
       case '1':
-        findUserInfoWithPlate(wechatID, search_plate, function(){
+        findUserInfoWithPlate(wechatID, search_plate, function(res){
           that.setData({
-            search: true
+            search: true,
+            carowner: res
           });
         });
         break;
@@ -127,7 +123,7 @@ function checkUserLogin(wechatID, name, plate, phone, func) {
     data: {
       wechatId: wechatID,
       name: name,
-      plate: plate,
+      plate: plate.toLocaleUpperCase,
       phoneNumber: phone
     },
     dataType: 'json',
@@ -160,14 +156,14 @@ function findUserInfoWithPlate(wechatID, search_plate, func){
     url: HOST + "/school_car_owner/look_up_school_car_owner_by_plate",
     data: {
       wechatId: wechatID,
-      plate: search_plate
+      plate: search_plate.toLocaleUpperCase()
     },
     method: 'post',
     dataType: 'json',
     success: function (res) {
-      // console.log(res)
-      if (res.data.type === 'S') {
-        func();
+      console.log(res)
+      if (res.data.state === 'SUCCEED') {
+        func(res.data.message);
       } else if (res.data.type === 'O') {
         wx.showModal({
           title: '提示信息',

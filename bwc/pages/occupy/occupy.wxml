@@ -45,11 +45,11 @@
       </view>
       <view class="msg-group">
         <i class="iconfont icon-shouji" />
-        <text>电话：{{carowner.phone}}</text>
+        <text>电话：{{carowner.phoneNumber}}</text>
       </view>
       <view class="msg-group">
         <i class="iconfont icon-dingwei" />
-        <text>车位：{{carowner.location}}</text>
+        <text>车位：{{carowner.carport}}</text>
       </view>
     </view>
   </block>
