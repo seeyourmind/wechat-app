@@ -150,6 +150,8 @@ Page({
     var plate = this.data.checkPlate ? this.data.checkPlate: '';
     var wechatid = wx.getStorageSync('wechatID');
     var that = this;
+    paycheck = true;
+    begin = 30;
     // console.log(plate, wechatid);
     wx.request({
       url: HOST + '/car_owner/get_parking_fee',
@@ -178,6 +180,7 @@ Page({
               query: false,
               money: parseFloat(pay_msg.parkingactfee) / 100
             });
+            // console.log('this is the where to get timer')
             getTimer(that);
           }
         } else {
@@ -258,6 +261,11 @@ Page({
         },
         fail: function (err) {
           // console.log(res);
+          wx.showModal({
+            title: 'Sorry~~~',
+            content: '服务器被坏小孩破坏了，程序猿小哥哥正在努力修复中。。。',
+            showCancel: false
+          });
         }
       });
     } else {
@@ -337,17 +345,19 @@ function loginRequest(code, func) {
  * 倒计时
  */
 function getTimer(page){
+  // console.log('get timer:', begin)
   begin -= 1;
   page.setData({
     timer: begin
   });
-  if (begin === 0 && paycheck){
-    begin = 30;
+  if (begin <= 0 && paycheck){
+    // console.log('if:', begin)
     wx.showModal({
       title: '',
       content: '您未能在30s内完成支付，订单自动取消；如需再次支付，请重新获取订单',
       showCancel: false,
       success: function (res) {
+        begin = 30;
         if (res.confirm) {
           page.setData({
             query: true,
@@ -356,7 +366,11 @@ function getTimer(page){
         }
       }
     });
+  } else if(begin > 0 && !paycheck){
+    // console.log('elseif:', begin)
+    begin = 30;
   } else {
+    // console.log('else:', begin)
     setTimeout(function(){
       getTimer(page)
     }, 1000);
