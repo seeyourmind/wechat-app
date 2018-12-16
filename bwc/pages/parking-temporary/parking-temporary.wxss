@@ -1,0 +1,162 @@
+/* pages/parking-temporary/parking-temporary.wxss */
+.title-view {
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx;
+}
+
+.entrance-right {
+  text-align: right;
+  z-index: 999;
+  position: fixed;
+  top: 10rpx;
+  right: 0rpx;
+  padding: 5rpx;
+  width: 70rpx;
+  font-size: 0.8rem;
+  color: white;
+  border-radius: 20rpx 0 0 20rpx;
+  box-shadow: 5rpx 5rpx 15rpx #116fa1; 
+  background-color: #1296db;
+}
+
+.title-view view {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+}
+
+.title-icon {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 1.5rem;
+}
+
+.warming-msg {
+  font-size: 0.9rem;
+  color: red;
+}
+
+.border-select {
+  border-radius: 20rpx 0 0 20rpx;
+  box-shadow: 0 0 15rpx #11ad19;
+  margin: 0 20rpx;
+}
+
+.input-view {
+  display: flex;
+  flex-direction: row;
+}
+
+.picker-province {
+  background-color: #11ad19;
+  border-radius: 20rpx 0 0 20rpx;
+  width: 20%;
+  text-align: center;
+  line-height: 110rpx;
+  color: white;
+  font-size: 1.5rem;
+  margin-left: 20rpx;
+}
+
+.number-plate-input {
+  border: 3rpx solid #bfbfbf;
+  padding: 10rpx 0;
+  width: 70%;
+  height: 90rpx;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.xiala-button {
+  background-color: #11ad19;
+  border-radius: 0 20rpx 20rpx 0;
+  width: 10%;
+  text-align: center;
+  line-height: 110rpx;
+  color: white;
+  font-size: 1.1rem;
+  margin-right: 20rpx;
+}
+.xiala-button:active {
+  background-color: #147519;
+}
+
+.select-view {
+  position: absolute;
+  top: 260rpx;
+  z-index: 1;
+  overflow: hidden;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 20rpx;
+  background-color: #bfbfbf;
+  margin: 0 20rpx;
+  border-radius: 0 0 20rpx 20rpx;
+  animation: myfirst 0.5s;
+  text-align: center;
+}
+
+.select-item {
+  border-top: 1rpx solid #e6e6e6; 
+  font-size: 1.3rem;
+  padding: 20rpx;
+}
+
+.payment-view {
+  width: 70%;
+  margin: 100rpx auto 0 auto;
+  text-align: center;
+  background: #e6e6e6;
+  padding: 20rpx;
+  border: 1rpx solid #e6e6e6;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-view view {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10rpx;
+  font-size: 1.5rem;
+}
+
+.pay-warning {
+  font-size: 0.9rem;
+  width: 80%;
+  color: #bfbfbf;
+  text-align: center;
+  position: fixed;
+  bottom: 200rpx;
+  left: 10%;
+}
+
+.campus-msg {
+  font-size: 0.9rem;
+  color: #bfbfbf;
+  text-align: center;
+}
+
+.submit-button {
+  width: 90%;
+  position: fixed;
+  bottom: 80rpx;
+  left: 5%;
+}
+
+.yuanstyle {
+  margin-top: 15rpx;
+}
+
+.pay-warning-allways{
+  font-size: 0.9rem;
+  color: #555555;
+  text-align: center;
+  width: 80%;
+  padding-top: 50rpx;
+  margin-left: 10%;
+}

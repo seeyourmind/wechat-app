@@ -1,6 +1,6 @@
 // pages/occupy/occupy.js
 var HOST = getApp().globalData.HOST;
-var wechatID = wx.getStorageSync('wechatID');
+var wechatID = null;
 
 Page({
 
@@ -10,21 +10,21 @@ Page({
   data: {
     carowner: {},
     search: false,
-    login: false
+    query: false,
+    login: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var name = wx.getStorageSync('name');
-    var plate = wx.getStorageSync('plate') ? wx.getStorageSync('plate') : '';
+    wechatID = wx.getStorageSync('wechatID');
     var phone = wx.getStorageSync('phone');
     var that = this;
-    // console.log('on load:', name + ':' + plate + ':' + phone)
-    if (name.length && plate.length && phone.length) {
+    console.log('on load:', phone+wechatID)
+    if (phone.length) {
       that.setData({
-        login: true
+        login: false
       });
     }
   },
@@ -77,16 +77,18 @@ Page({
   onShareAppMessage: function () {
 
   },
-
+  //获取占位车主信息
   getCarOwnerInfo: function (e) {
-    // console.log(e)
+    console.log(e)
     var that = this;
     var current_id = e.detail.target.id;
     var search_plate = e.detail.value.searchPlate;
     switch(current_id){
       case '1':
+        that.setData({query: true});
         findUserInfoWithPlate(wechatID, search_plate, function(res){
           that.setData({
+            query: false,
             search: true,
             carowner: res
           });
@@ -99,18 +101,19 @@ Page({
         break;
     }
   },
-
+  // 获取用户输入数据
   getCarOwnerPanel: function (e) {
     // console.log('form发生了submit事件，携带数据为：', )
     var that = this;
     var name = e.detail.value.name;
-    var plate = e.detail.value.plate;
+    var plate = (e.detail.value.plate).toUpperCase();
     var phone = e.detail.value.phone;
-      
+    console.log(e)
+    //验证车主身份
     checkUserLogin(wechatID, name, plate, phone, function(){
-      // console.log('get car owner panel: ', name+plate+phone);
+      console.log('get car owner panel: ', name+plate+phone);
       that.setData({
-        login: true
+        login: false
       });
     });
   },
@@ -119,25 +122,35 @@ Page({
     var that = this;
     that.setData({
       search: false,
+      query: false,
       carowner: {}
     })
+  },
+
+  // 跳转至月租户
+  jumpToLongTerm: function (e) {
+    // console.log(e)
+    wx.redirectTo({
+      url: '../parking-temporary/parking-temporary?isback=true',
+    });
   }
 });
 
+// 验证是否为月租户
 function checkUserLogin(wechatID, name, plate, phone, func) {
-  // console.log('check user login:', wechatID+name+phone+plate)
+  console.log('check user login:', wechatID+name+phone+plate)
   wx.request({
     url: HOST + '/school_car_owner/login',
     data: {
       wechatId: wechatID,
       name: name,
-      plate: plate.toLocaleUpperCase,
+      plate: plate.toUpperCase(),
       phoneNumber: phone
     },
     dataType: 'json',
     method: 'POST',
     success: function (res) {
-      // console.log(res)
+      console.log(res)
       if (res.data.state === 'SUCCEED') {
         // console.log('check user login return[S]: ', name + plate + phone)
         wx.setStorageSync('name', name);
@@ -159,6 +172,7 @@ function checkUserLogin(wechatID, name, plate, phone, func) {
   });
 }
 
+// 查找占位车主
 function findUserInfoWithPlate(wechatID, search_plate, func){
   wx.request({
     url: HOST + "/school_car_owner/look_up_school_car_owner_by_plate",

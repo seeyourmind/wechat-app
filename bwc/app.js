@@ -6,12 +6,6 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -31,10 +25,14 @@ App({
           })
         }
       }
-    })
+    });
   },
   globalData: {
     userInfo: null,
-    HOST: 'https://parking.evenif.top'
+    // HOST: 'https://parking.evenif.top'
+    // HOST: 'https://leave-assistant.jxust.edu.cn'
+    // HOST: 'http://ifonly.iask.in'
+    // HOST: 'http://214v063q02.iask.in'
+    HOST: 'https://parking-pay.jxust.edu.cn'
   }
 })

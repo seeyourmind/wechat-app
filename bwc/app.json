@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/logs/logs",
+    "pages/index/index",
+    "pages/parking-temporary/parking-temporary",
     "pages/parking-fee/parking-fee",
-    "pages/occupy/occupy",
-    "pages/occupy/car-owner/car-owner"
+    "pages/occupy/occupy"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,7 +24,7 @@
         "selectedIconPath": "image/parking-selected.png"
       },
       {
-        "pagePath": "pages/occupy/occupy",
+        "pagePath": "pages/index/index",
         "text": "占位车主电话查询",
         "iconPath": "image/occupy.png",
         "selectedIconPath": "image/occupy-selected.png"

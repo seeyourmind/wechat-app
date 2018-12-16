@@ -1,5 +1,42 @@
 /* pages/occupy/occupy.wxss */
-@import "/pages/parking-fee/parking-fee.wxss";
+.title-view {
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx;
+}
+
+.entrance-right {
+  text-align: right;
+  z-index: 999;
+  position: fixed;
+  top: 10rpx;
+  right: 0rpx;
+  padding: 5rpx;
+  width: 70rpx;
+  font-size: 0.8rem;
+  color: white;
+  border-radius: 20rpx 0 0 20rpx;
+  box-shadow: 5rpx 5rpx 15rpx #11ad19; 
+  background-color: #11ad19;
+}
+
+.title-view view {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+}
+
+.warming-msg {
+  font-size: 0.9rem;
+  color: red;
+}
+
+.submit-button {
+  width: 90%;
+  position: fixed;
+  bottom: 20rpx;
+  left: 5%;
+}
 
 .title-view-login {
   display: flex;
@@ -15,7 +52,7 @@
 
 .title-icon-login {
   font-size: 1.5rem;
-  color: #11ad19;
+  color: #1296db;
 }
 
 .form-view {
@@ -40,6 +77,8 @@
   position: fixed;
   bottom: 20rpx;
   left: 5%;
+  color: white;
+  background-color: #1296db;
 }
 
 .car-owner-msg-view {

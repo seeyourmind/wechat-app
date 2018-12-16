@@ -6,10 +6,14 @@ Page({
     logs: []
   },
   onLoad: function () {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return util.formatTime(new Date(log))
+    if (wx.getStorageSync('leavePage') === 'fee') {
+      wx.switchTab({
+        url: '/pages/parking-fee/parking-fee',
       })
-    })
-  }
+    } else {
+      wx.redirectTo({
+        url: '/pages/parking-temporary/parking-temporary',
+      })
+    }
+  },
 })

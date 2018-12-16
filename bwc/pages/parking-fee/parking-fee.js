@@ -1,11 +1,14 @@
 // pages/parking-fee/parking-fee.js
 var util = require('../../utils/util.js');
+var rurl = require('../../utils/request-url.js');
 var HOST = getApp().globalData.HOST;
 var wechatId = null;
+var orderId = null;
 var pay_msg = null;
-var begin = 30;
+var begin = 100;
 var paycheck = true;
 var windowInfo = 0;
+var timer = null;
 
 Page({
 
@@ -15,42 +18,47 @@ Page({
   data: {
     money: 0.0,
     query: true,
-    plates_hist:[],
-    selected: false,
-    input_plate: '',
-    timer: 30
+    timer: 100,
+    allready: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // console.log('wechatId form storage sync:', wx.getStorageSync('wechatID'))
     var that = this;
     wx.getSystemInfo({
       success: function(res) {
         windowInfo = res.windowHeight;
       },
     });
-    wx.login({
-      success: function (res) {
-        // console.log('res->'+HOST,res)
-        loginRequest(res.code, function(){
-          that.setData({
-            plates_hist: wx.getStorageSync('plates')
-          });
-        });
-        
-        // console.log('onload plates:', that.data.plates_hist);
-      },
-      fail: function (err) {
-        // console.log('err->',err)
-        wx.showModal({
-          title: '异常信息',
-          content: '服务器正在维护中...',
-          showCancel: false
-        });
-      }
-    })
+    wechatId = wx.getStorageSync('wechatID');
+    if (wechatId){
+      that.setData({
+        allready: false
+      });
+   } else {
+     wx.login({
+       success: function (res) {
+        //  console.log('res->'+HOST,res)
+         loginRequest(res.code, function () {
+           that.setData({
+             allready: false
+           });
+         });
+         // console.log('onload plates:', that.data.plates_hist);
+       },
+       fail: function (err) {
+         // console.log('err->',err)
+         wx.showModal({
+           title: '异常信息',
+           content: '服务器正在维护中...',
+           showCancel: false
+         });
+       }
+     })
+   }
   },
 
   /**
@@ -64,7 +72,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.setStorageSync('leavePage', 'fee');
   },
 
   /**
@@ -103,122 +111,109 @@ Page({
   },
 
   /**
-   * 输入框控制selectPanel
-   */
-  inputSelsectStatus: function(e) {
-    changeSelectedStatus(this, false);
-    // console.log('bindfocus',e)
-  },
-  hideSelectPanel: function(e) {
-    changeSelectedStatus(this, true);
-    // console.log('bindurl', e)
-    this.setData({
-      checkPlate: e.detail.value
-    });
-  },
-  clickHide: function(e){
-    // console.log('click view to hide the select panel', e.detail.y, windowInfo*0.4)
-    var that = this;
-    if ((e.detail.y <= windowInfo*0.2 || e.detail.y >= windowInfo*0.4) && that.data.selected){
-      // console.log('select panel will be closed')
-      changeSelectedStatus(that, true);
-    }
-  },
-
-  /**
-   * 点击label，下拉面板的显示
-   */
-  selectStatus: function(){
-    changeSelectedStatus(this, this.data.selected);
-  },
-
-  /**
-   * 下拉面板选择车牌
-   */
-  selectPlate: function(e){
-    var selectplate = e.currentTarget.id;
-    this.setData({
-      checkPlate: selectplate
-    });
-    changeSelectedStatus(this, this.data.selected);
-  },
-
-  /**
    * 获取支付费用
    */
   getPayMoney: function () {
-    var plate = this.data.checkPlate ? this.data.checkPlate: '';
-    var wechatid = wx.getStorageSync('wechatID');
+    // console.log('用户需要扫二维码获取订单',wechatId);
     var that = this;
     paycheck = true;
-    begin = 30;
-    // console.log(plate, wechatid);
-    wx.request({
-      url: HOST + '/car_owner/get_parking_fee',
-      data: {
-        wechatId: wechatid,
-        plate: plate.toLocaleUpperCase()
-      },
-      dataType: 'json',
-      method: 'POST',
+    wx.scanCode({
+      scanType: ['qrCode'],
       success: function(res){
-        if(res.data.state === 'SUCCEED'){
-          pay_msg = res.data.message
-          // console.log(pay_msg);
-          
-          if (parseInt(pay_msg.parkingactfee)<=0){
-            that.setData({
-              money: 0.0
-            });
+        // console.log(res.result);
+        that.setData({
+          allready: true
+        });
+        orderId = res.result;
+        begin = 100;
+        wx.request({
+          url: HOST + rurl.getRequestURL('get_monthly_rent_details_by_order_id'),
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            'orderId': orderId,
+            'wechatId': wechatId
+          },
+          success: function(res){
+            // console.log(res)
+            if (res.data.state === 'SUCCEED'){
+              var pay_msg = res.data.message;
+              wx.setStorageSync('plate', pay_msg.plate);
+              if (parseInt(pay_msg.parkingactfee) <= 0) {
+                that.setData({
+                  money: 0.0
+                });
+                wx.showModal({
+                  title: '温馨提醒',
+                  content: '您暂时不需要缴纳月租费用',
+                  showCancel: false
+                });
+              } else {
+                that.setData({
+                  orderDetail: res.data.message,
+                  money: parseFloat(res.data.message.fee) / 100,
+                  query: false
+                });
+                // console.log('this is the where to get timer')
+                getTimer(that);
+              }
+            } else {
+              wx.showModal({
+                title: 'Sorry~~~',
+                content: res.data.message,
+                showCancel: false
+              });
+            }
+          },
+          fail: function(err){
+            // console.log('err:', err);
             wx.showModal({
-              title: '温馨提醒',
-              content: '当前车牌号并未产生停车费用',
+              title: 'Sorry~~~',
+              content: '获取交易订单失败，请重新扫码',
               showCancel: false
             });
-          } else {
+          },
+          complete: function(){
             that.setData({
-              query: false,
-              money: parseFloat(pay_msg.parkingactfee) / 100
+              allready: false
             });
-            // console.log('this is the where to get timer')
-            getTimer(that);
           }
-        } else {
-          that.setData({
-            money: 0.0
-          });
-          wx.showModal({
-            title: 'Sorry~~~',
-            content: res.data.message,
-            showCancel: false
-          });
-        }
+        })
       },
       fail: function(err){
         // console.log(err);
         wx.showModal({
           title: 'Sorry~~~',
-          content: '服务器被坏小孩破坏了，程序猿小哥哥正在努力修复中。。。',
+          content: '未能识别该二维码，请重新扫码',
           showCancel: false
         });
+      },
+      complete: function () {
+        that.setData({
+          allready: false
+        });
       }
-    });
+    })
   },
 
   /**
    * 支付请求
    */
   payforParkingFee: function () {
+    // console.log('支付请求')
     var that = this;
     paycheck = false;
-    begin = 30;
+    begin = 100;
     var money = that.data.money;
-    var orderid = pay_msg? pay_msg.orderid:'';
-    var wechatid = wx.getStorageSync('wechatID');
+    var orderid = orderId? orderId:'';
+    var wechatid = wechatId;
+    that.setData({
+      allready: true
+    });
     if(wechatid.length>1 && orderid.length>1){
       // console.log('orderid:', orderid)
       wx.request({
-        url: HOST + '/car_owner/get_order_pay_parameters',
+        url: HOST + rurl.getRequestURL('get_order_pay_parameters'),
         data: {
           wechatId: wechatid,
           orderId: orderid
@@ -231,7 +226,8 @@ Page({
             var pay_auth = res.data.message;
             that.setData({
               query: true,
-              money: 0.0
+              money: 0.0,
+              allready: true
             });
             wx.requestPayment({
               timeStamp: '' + pay_auth.timeStamp,
@@ -241,21 +237,49 @@ Page({
               paySign: pay_auth.paySign,
               success: function (res) {
                 // console.log(res)
+                wx.showModal({
+                  title: '',
+                  content: '感谢您的使用，您已付款成功',
+                  showCancel: false,
+                  success: function(res){
+                    if(res.confirm){
+                      initPanel(that);
+                    }
+                  }
+                });
               },
               fail: function (err) {
-                // console.log(err)
+                // console.log('支付异常：', err)
+                initPanel(that);
+                /*
                 wx.showModal({
                   title: '异常信息',
                   content: err.errMsg === 'requestPayment:fail cancel' ? '支付异常：您已取消支付' : err.err_desc,
-                  showCancel: false
+                  showCancel: false,
+                  success: function (res) {
+                    if (res.confirm) {
+                      initPanel(that);
+                    }
+                  }
                 });
+                */
+              },
+              complete: function(){
+                that.setData({
+                  allready: false
+                })
               }
             });
           } else {
             wx.showModal({
               title: 'Sorry~~~',
-              content: '付费超时，请重新获取订单，并在30s内完成付款',
-              showCancel: false
+              content: res.data.message,
+              showCancel: false,
+              success: function(res){
+                if(res.confirm){
+                  initPanel(that);
+                }
+              }
             });
           }
         },
@@ -264,8 +288,18 @@ Page({
           wx.showModal({
             title: 'Sorry~~~',
             content: '服务器被坏小孩破坏了，程序猿小哥哥正在努力修复中。。。',
-            showCancel: false
+            showCancel: false,
+            success: function(res){
+              if (res.confirm) {
+                initPanel(that);
+              }
+            }
           });
+        },
+        complete: function(){
+          that.setData({
+            allready: false
+          })
         }
       });
     } else {
@@ -282,24 +316,25 @@ Page({
         showCancel: false
       })
     }
-  } 
+  },
+  // 跳转至月租户
+  jumpToLongTerm: function (e) {
+    // console.log(e)
+    begin = 100;
+    paycheck = false;
+    clearTimeout(timer);
+    wx.redirectTo({
+      url: '../parking-temporary/parking-temporary?isback=true',
+    });
+  }
 });
-
-/**
-   * 更改selected状态
-   */
-function changeSelectedStatus (that, status) {
-  that.setData({
-    selected: !status
-  });
-}
 
 /**
  * 登录验证
  */
 function loginRequest(code, func) {
   wx.request({
-    url: HOST + '/user/get_user_info_by_wechat_js_code',
+    url: HOST + rurl.getRequestURL('get_by_wechat_js_code'),
     data: {
       'jsCode': code
     },
@@ -309,15 +344,7 @@ function loginRequest(code, func) {
       // console.log(res.data)
       if (res.data.state === 'SUCCEED') {
         wechatId = res.data.message.wechatId
-        // console.log(wechatId)
         wx.setStorageSync('wechatID', wechatId);
-        wx.setStorageSync('carport', res.data.message.carport ? res.data.message.carport:'');
-        wx.setStorageSync('plate', (Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0].length > 0 ? (Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0]:'');// 直接返回给我车牌
-        // console.log((Object.entries(res.data.message.plates).filter(e => e[1]['id'] === res.data.message.lastUsePlateId).map(e => e[1]['character']))[0]);
-        // console.log('on loginRequst plates:', res.data.message.plates)
-        wx.setStorageSync('plates', res.data.message.plates ? res.data.message.plates:[]);
-        wx.setStorageSync('name', res.data.message.name ? res.data.message.name:'');
-        wx.setStorageSync('phone', res.data.message.phoneNumber ? res.data.message.phoneNumber:'');
         wx.showToast({
           title: '欢迎使用',
         });
@@ -351,13 +378,13 @@ function getTimer(page){
     timer: begin
   });
   if (begin <= 0 && paycheck){
-    // console.log('if:', begin)
+    // console.log('if:', begin+paycheck)
     wx.showModal({
       title: '',
-      content: '您未能在30s内完成支付，订单自动取消；如需再次支付，请重新获取订单',
+      content: '您未能在100s内完成支付，订单自动取消；如需再次支付，请重新获取订单',
       showCancel: false,
       success: function (res) {
-        begin = 30;
+        begin = 100;
         if (res.confirm) {
           page.setData({
             query: true,
@@ -367,12 +394,22 @@ function getTimer(page){
       }
     });
   } else if(begin > 0 && !paycheck){
-    // console.log('elseif:', begin)
-    begin = 30;
+    // console.log('elseif:', begin, paycheck)
+    begin = 100;
   } else {
-    // console.log('else:', begin)
-    setTimeout(function(){
+    // console.log('else:', begin, paycheck)
+    timer = setTimeout(function(){
       getTimer(page)
     }, 1000);
   }
+}
+/**
+ * 初始化面板
+ */
+function initPanel(page){
+  page.setData({
+    query: true,
+    money: 0.0,
+    orderDetail: false
+  });
 }

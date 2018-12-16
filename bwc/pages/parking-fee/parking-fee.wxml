@@ -1,28 +1,23 @@
 <!--pages/parking-fee/parking-fee.wxml-->
-<view style="height:100vh;" catchtap='clickHide'>
-<view class="title-view">
-  <i class="iconfont icon-chepai title-icon" />
-  <view>
-    <text>请输入您的车牌</text>
-    <text class="warming-msg">请勿输入车牌号间的空格</text>
-  </view>
-</view>
-<view class="input-view">
-  <input class="number-plate-input" style="{{selected?'border-radius: 20rpx 0 0 0;':''}}" placeholder="请输入车牌[无需输入空格]"  bindfocus="inputSelsectStatus" bindblur="hideSelectPanel" value="{{checkPlate}}" />
-  <label class="xiala-button" style="{{selected?'border-radius: 0 20rpx 0 0;':''}}" catchtap="selectStatus"><i class="iconfont {{selected?'icon-xiala1':'icon-xiala'}}" /></label>
-</view>
-<view class="select-view" wx:if="{{selected}}">
-  <text id="{{item.character}}" class="select-item" style="{{index==0?'border-top: 1rpx solid #bfbfbf;':''}}" wx:for="{{plates_hist}}" wx:key='' catchtap="selectPlate">{{item.character}}</text>
-</view>
+<view class="entrance-right" bindtap="jumpToLongTerm">临时用户</view>
 <view class="payment-view">
-  <text>您需要支付停车费用</text>
+  <text>您需要缴纳月租费用</text>
   <view>
-    <i class="iconfont icon-renminbi" />
+    <i class="yuanstyle iconfont icon-renminbi" />
     <text> {{money>0.0?money:"_ _ _ _"}}元</text>
   </view>
 </view>
-<text  class="pay-warning" wx:if="{{!query}}">请您在30s完成支付
-如果未能完成，请重新获取订单</text>
-<button class="submit-button" type="primary" catchtap="getPayMoney" wx:if="{{query}}">查询停车费用</button>
-<button class="submit-button" type="primary" catchtap="payforParkingFee" wx:if="{{!query}}">请支付{{money}}元 ({{timer}}s)</button>
+<view class="order-detail-view" wx:if="{{orderDetail}}">
+  <label>订单详情</label>
+  <text>
+  车牌：{{orderDetail.plate}}
+  费用：{{orderDetail.fee/100}}
+  下单时间：{{orderDetail.orderTime}}
+  </text>
 </view>
+<text  class="pay-warning" wx:if="{{!query}}">请您在100s完成支付
+如果未能完成，请重新获取订单</text>
+<button class="submit-button" catchtap="getPayMoney" wx:if="{{query}}">扫码付费</button>
+<button class="submit-button" catchtap="payforParkingFee" wx:if="{{!query}}">请支付{{money}}元 ({{timer}}s)</button>
+
+<loading wx:if="{{allready}}" />

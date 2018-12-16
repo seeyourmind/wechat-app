@@ -1,5 +1,6 @@
 <!--pages/occupy/occupy.wxml-->
-<block wx:if="{{!login}}">
+<view class="entrance-right" bindtap="jumpToLongTerm">临时用户</view>
+<block wx:if="{{login}}">
   <view class="title-view-login">
     <i class="iconfont icon-iconfonthoudongfangiconfont01 title-icon-login" />
     <text>登录，以验证您的信息</text>
@@ -16,10 +17,10 @@
       <text>请输入您预留在保卫处的手机号</text>
       <input name="phone" placeholder="输入手机号"></input>
     </view>
-    <button form-type="submit" class="submit-button" type="primary">确定</button>
+    <button form-type="submit" class="submit-button">确定</button>
   </form>
 </block>
-<block wx:if="{{login}}">
+<block wx:if="{{!login}}">
   <!--pages/occupy/car-owner/car-owner.wxml-->
   <view class="title-view">
     <i class="iconfont icon-chepai title-icon" />
@@ -30,7 +31,7 @@
   </view>
   <form bindsubmit="getCarOwnerInfo">
     <input name="searchPlate" class="number-plate-input" placeholder="请输入车牌[无需输入空格]" bindfocus="flashInterface"></input>
-    <button form-type="submit" class="submit-button" type="primary" id="{{search?2:1}}">{{search?'拨打车主电话':'查找'}}</button>
+    <button form-type="submit" class="submit-button" id="{{search?2:1}}">{{search?'拨打车主电话':'查找'}}</button>
   </form>
   <block wx:if="{{search}}">
     <view class="car-owner-msg-view">
@@ -54,3 +55,4 @@
     </view>
   </block>
 </block>
+<loading wx:if="{{query}}" />
